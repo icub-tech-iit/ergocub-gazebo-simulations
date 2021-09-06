@@ -7,12 +7,12 @@
 
     <joint name="fixed_left" type="fixed">
       <parent>world</parent>
-      <child>iCub::l_foot_rear</child>
+      <child>stickBot::l_foot_rear</child>
     </joint>
 
     <joint name="fixed_right" type="fixed">
       <parent>world</parent>
-      <child>iCub::r_foot_rear</child>
+      <child>stickBot::r_foot_rear</child>
     </joint>
   </model>
 </sdf>

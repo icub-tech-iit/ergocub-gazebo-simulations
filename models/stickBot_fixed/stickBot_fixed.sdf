@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name="stickBot_fixed">
+    <include>
+      <uri>model://stickBot</uri>
+      <pose>0.0 0 1.3 0 0 3.14</pose>
+    </include>
+
+    <joint name="fixed_world_joint" type="fixed">
+      <parent>world</parent>
+      <child>stickBot::root_link</child>
+    </joint>
+  </model>
+</sdf>

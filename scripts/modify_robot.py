@@ -351,36 +351,42 @@ def erase_dummy_file(dummy_filename):
     """Erases the dummy file"""
     os.remove(dummy_filename)
 
-def main(filename, dummy_file, config_file_path):
+def install_urdf():
+    os.system("cd ../build && make install -j4")
+
+def main(filename, dummy_file, config_file_path, should_reset):
     # The urdfpy library does not read the gazebo plugins well so they need to be
     # stripped from the file before parsing it
-    main_urdf, gazebo_plugin_text = separate_gazebo_plugins(filename)
-    create_dummy_file(dummy_file, main_urdf)
-    robot = URDF.load(dummy_file)
-    erase_dummy_file(dummy_file)
-    config = configparser.ConfigParser()
-    config.read(config_file_path)
-    for config_section in config.sections():
-        dimension_multiplier = float(config[config_section].get('dimension', '1.0'))
-        density_multiplier = float(config[config_section].get('density', '-1'))
-        if config_section.upper() in Limb:
-            limb = Limb[config_section.upper()]
-            elements_to_modify = get_elements_to_modify(limb)
-            for element_to_modify in elements_to_modify:
-                if (element_to_modify.element_type == RobotElement.LINK):
-                    element_to_modify.modify(robot, dimension_multiplier, density_multiplier)
-                elif (element_to_modify.element_type == RobotElement.JOINT):
-                    joint_parent = LinkModifier.get_link(robot, element_to_modify.get_element(robot).parent)
-                    element_to_modify.modify(robot, joint_parent)
-            
-    create_backup(filename)
-    write_urdf_to_file(robot, filename, gazebo_plugin_text)
+    if (should_reset):
+        os.system("git checkout ../models/stickBot/model.urdf")
+    else:
+        main_urdf, gazebo_plugin_text = separate_gazebo_plugins(filename)
+        create_dummy_file(dummy_file, main_urdf)
+        robot = URDF.load(dummy_file)
+        erase_dummy_file(dummy_file)
+        config = configparser.ConfigParser()
+        config.read(config_file_path)
+        for config_section in config.sections():
+            dimension_multiplier = float(config[config_section].get('dimension', '1.0'))
+            density_multiplier = float(config[config_section].get('density', '-1'))
+            if config_section.upper() in Limb:
+                limb = Limb[config_section.upper()]
+                elements_to_modify = get_elements_to_modify(limb)
+                for element_to_modify in elements_to_modify:
+                    if (element_to_modify.element_type == RobotElement.LINK):
+                        element_to_modify.modify(robot, dimension_multiplier, density_multiplier)
+                    elif (element_to_modify.element_type == RobotElement.JOINT):
+                        joint_parent = LinkModifier.get_link(robot, element_to_modify.get_element(robot).parent)
+                        element_to_modify.modify(robot, joint_parent)
+        write_urdf_to_file(robot, filename, gazebo_plugin_text)
+    install_urdf()
 
 if __name__ == "__main__":
     dummy_file = 'no_gazebo_plugins.urdf'
     parser = argparse.ArgumentParser(description = "Modifies a Stick-Bot URDF file")
-    parser.add_argument('filename', help="The filename of the robot's URDF")
+    parser.add_argument('filename', nargs='?', help="The filename of the robot's URDF", default="../models/stickBot/model.urdf")
     parser.add_argument('-c', '--config', help="Path to configuration file", default="conf.ini")
+    parser.add_argument('-r', '--reset', help="Sets the robotback to latest version in Git", action="store_true")
     args = parser.parse_args()
     if args.filename is not None:
-        main(args.filename, dummy_file, args.config)
+        main(args.filename, dummy_file, args.config, args.reset)
