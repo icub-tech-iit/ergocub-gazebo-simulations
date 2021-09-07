@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="lifting_cube">
+    <pose>0.3 0 1.7 0 0 0</pose>
+    <static>false</static>
+    <link name="link">
+        <collision name="collision">
+            <geometry>
+                <box>
+                    <size> 0.25 0.3 0.08 </size>
+                </box>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <geometry>
+                <box>
+                    <size> 0.25 0.3 0.08 </size>
+                </box>
+            </geometry>
+            <material>
+                <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Red</name>
+                </script>
+        </material>
+        </visual>
+        <inertial>
+            <mass>20.0</mass>
+        </inertial>
+    </link>
+  </model>
+</sdf>
