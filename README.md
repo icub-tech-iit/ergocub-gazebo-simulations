@@ -12,6 +12,7 @@ Repository for testing different versions of ergocub using gazebo.
 
 ## Requirements:
 
+- [`gazebo`](http://gazebosim.org/)
 - [`robotology-superbuild`](https://github.com/robotology/robotology-superbuild)
 
 ## Installation:
@@ -29,7 +30,7 @@ cd build
 
 ```bash
 ccmake ..
-CMAKE_INSTALL_PREFIX             <directory-where-you-downloaded-robotology-superbuild>/build/
+CMAKE_INSTALL_PREFIX             <directory-where-you-downloaded-robotology-superbuild>/build/install
 ```
 
 - You can now proceed to build:
