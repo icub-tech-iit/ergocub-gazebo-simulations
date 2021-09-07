@@ -13,7 +13,10 @@ Repository for testing different versions of ergocub using gazebo.
 ## Requirements:
 
 - [`gazebo`](http://gazebosim.org/)
-- [`robotology-superbuild`](https://github.com/robotology/robotology-superbuild)
+- [`gazebo-yarp-plugins`](https://github.com/robotology/gazebo-yarp-plugins)
+- [`icub-models`](https://github.com/robotology/icub-models)
+
+A convenient way to install the required software and their dependencies is to use the [`robotology-superbuild`](https://github.com/robotology/robotology-superbuild).
 
 ## Installation:
 
