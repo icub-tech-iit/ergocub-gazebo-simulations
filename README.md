@@ -6,9 +6,9 @@ Repository for testing different versions of ergocub using gazebo.
 
 ## Maintained by:
 
-- German Rodriguez (@GrmanRodriguez)
-- Alex Antunes (@AlexAntn)
-- Nicolo Genesio (@NicoGene)
+- German Rodriguez ([@GrmanRodriguez](https://github.com/GrmanRodriguez))
+- Alex Antunes ([@AlexAntn](https://github.com/AlexAntn/))
+- Nicolo Genesio ([@Nicogene](https://github.com/Nicogene/))
 
 ## Requirements:
 
@@ -71,7 +71,7 @@ dimension = 1.5
 
 The upper section (the one inside `[]`) specifies the limb to modify, options include `torso, right_arm, left_arm, right_leg, left_leg, arms, legs` and `all`. Sections with other names will be ignored.
 
-For any section you can specify `dimension` and `density` multipliers, which will multiply the specific property for all the links in the specified limb.
+For any limb you can specify `dimension` and `density` multipliers, which will multiply the specific property for all the links in the specified limb.
 
 ## Feedback and Collaboration
 
