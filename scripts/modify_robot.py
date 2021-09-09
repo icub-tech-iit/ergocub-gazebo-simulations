@@ -77,7 +77,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = "Modifies a Stick-Bot URDF file")
     parser.add_argument('filename', nargs='?', help="The filename of the robot's URDF", default="../models/stickBot/model.urdf")
     parser.add_argument('-c', '--config', help="Path to configuration file", default="conf.ini")
-    parser.add_argument('-r', '--reset', help="Sets the robotback to latest version in Git", action="store_true")
+    parser.add_argument('-r', '--reset', help="Sets the robot back to latest version in Git", action="store_true")
     args = parser.parse_args()
     if args.filename is not None:
         main(args.filename, dummy_file, args.config, args.reset)
