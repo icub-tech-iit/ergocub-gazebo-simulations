@@ -15,7 +15,7 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 ## Requirements:
 
 - [`gazebo`](http://gazebosim.org/)
-- [`robotology-superbuild`](https://github.com/robotology/robotology-superbuild)
+- [`robotology-superbuild`](https://github.com/robotology/robotology-superbuild) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
 
 ## Installation:
 
@@ -79,6 +79,8 @@ The upper section (the one inside `[]`) specifies the limb to modify, options in
 For any limb you can specify `dimension` and `density` multipliers, which will multiply the specific property for all the links in the specified limb.
 
 ### Holding Box Experiment
+
+This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin, then before running the script you must append to `GAZEBO_MODEL_PATH` the `my/workspace/robotology-superbuild/src/GazeboYARPPlugins/tutorial/model` path. Then:
 
 ```bash
 cd experiments/hold_box
