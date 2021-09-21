@@ -80,7 +80,7 @@ For any limb you can specify `dimension` and `density` multipliers, which will m
 
 ### Holding Box Experiment
 
-This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin, then before running the script you must append to `GAZEBO_MODEL_PATH` the `my/workspace/robotology-superbuild/src/GazeboYARPPlugins/tutorial/model` path. Then:
+This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin, then before running the script you must append to `GAZEBO_MODEL_PATH` the `/my/workspace/robotology-superbuild/src/GazeboYARPPlugins/tutorial/model` path. Then:
 
 ```bash
 cd experiments/hold_box
