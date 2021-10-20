@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE robot PUBLIC "-//YARP//DTD yarprobotinterface 3.0//EN" "http://www.yarp.it/DTD/yarprobotinterfaceV3.0.dtd">
+
+<device xmlns:xi="http://www.w3.org/2001/XInclude" name="cbremapper_icub_left_arm" type="controlboardremapper">
+    <paramlist name="networks">
+        <elem name="left_arm_no_hand">( 0 6 0 6 )</elem>
+    </paramlist>
+    <param name="period"> 0.010 </param>
+    <param name="joints"> 7 </param>
+    <action phase="startup" level="5" type="attach">
+        <paramlist name="networks">
+            <elem name="left_arm_no_hand"> left_arm_no_hand_mc </elem>
+        </paramlist>
+    </action>
+    <action phase="shutdown" level="5" type="detach" />
+</device>
