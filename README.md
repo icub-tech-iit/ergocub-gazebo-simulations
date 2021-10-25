@@ -16,6 +16,8 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 
 - [`gazebo`](http://gazebosim.org/)
 - [`robotology-superbuild`](https://github.com/robotology/robotology-superbuild) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
+- [`urdfpy`](https://github.com/mmatl/urdfpy)
+- [`dataclasses`](https://pypi.org/project/dataclasses/)
 
 ## Installation:
 
