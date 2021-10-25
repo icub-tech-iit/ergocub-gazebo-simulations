@@ -1,5 +1,12 @@
-cmake_minimum_required(VERSION 2.6)
+# Copyright (C) 2006-2021 Istituto Italiano di Tecnologia (IIT)
+# All rights reserved.
+#
+# This software may be modified and distributed under the terms of the
+# BSD-3-Clause license. See the accompanying LICENSE file for details.
 
+cmake_minimum_required(VERSION 3.12)
+project(ergocub-gazebo-simulation
+                       VERSION 0.0.0)
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot/model.urdf ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot/model.config DESTINATION share/gazebo/models/stickBot)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot_feet_fixed/stickBot_feet_fixed.sdf ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot_feet_fixed/model.config DESTINATION share/gazebo/models/stickBot_feet_fixed)
