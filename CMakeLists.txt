@@ -8,9 +8,8 @@ cmake_minimum_required(VERSION 3.12)
 project(ergocub-gazebo-simulation
                        VERSION 0.0.0)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot/model.urdf ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot/model.config DESTINATION share/gazebo/models/stickBot)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot_feet_fixed/stickBot_feet_fixed.sdf ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot_feet_fixed/model.config DESTINATION share/gazebo/models/stickBot_feet_fixed)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot_fixed/stickBot_fixed.sdf ${CMAKE_CURRENT_SOURCE_DIR}/models/stickBot_fixed/model.config DESTINATION share/gazebo/models/stickBot_fixed)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/models DESTINATION ${CMAKE_BINARY_DIR})
+install(DIRECTORY ${CMAKE_BINARY_DIR}/models DESTINATION share/gazebo)
 # for now using stickBot as name, we might want to change to something more ergocub-ish
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/scripts/modify_robot.py ${CMAKE_CURRENT_SOURCE_DIR}/scripts/fix_inertias.py DESTINATION bin )
