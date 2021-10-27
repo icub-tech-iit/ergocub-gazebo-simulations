@@ -122,7 +122,8 @@ class LinkModifier(Modifier):
                     xyz_rpy[index_to_change] = (visual_data.size[index_to_change] if not self.flip_direction else -visual_data.size[index_to_change]) / 2
                 else:
                     xyz_rpy[index_to_change] = 0
-                xyz_rpy[index_to_change] += self.origin_modifier 
+                xyz_rpy[index_to_change] += self.origin_modifier
+                visual_obj.origin = xyz_rpy_to_matrix(xyz_rpy) 
             else:
                 print(f"Error modifying link {self.element.name}'s origin: Box geometry with no dimension")
         elif (geometry_type == Geometry.CYLINDER):
