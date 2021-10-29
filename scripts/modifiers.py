@@ -146,7 +146,7 @@ class LinkModifier(Modifier):
                                 visual_data.size[0] ** 2 + visual_data.size[2] ** 2,
                                 visual_data.size[0] ** 2 + visual_data.size[1] ** 2])
         elif (geometry_type == Geometry.CYLINDER):
-            i_xy_incomplete = (3 ** visual_data.radius ** 2 + visual_data.length ** 2) / 12
+            i_xy_incomplete = (3 * visual_data.radius ** 2 + visual_data.length ** 2) / 12
             return mass * np.array([i_xy_incomplete, i_xy_incomplete, visual_data.radius ** 2 / 2])
         elif (geometry_type == Geometry.SPHERE):
             inertia = 2 * mass * visual_data.radius ** 2 / 5
