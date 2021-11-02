@@ -120,9 +120,8 @@ class LinkModifier(Modifier):
                     index_to_change = 2
                 if (self.calculate_origin_from_dimensions):
                     xyz_rpy[index_to_change] = (visual_data.size[index_to_change] if not self.flip_direction else -visual_data.size[index_to_change]) / 2
-                else:
-                    xyz_rpy[index_to_change] = 0
-                xyz_rpy[index_to_change] += self.origin_modifier 
+                xyz_rpy[index_to_change] += self.origin_modifier
+                visual_obj.origin = xyz_rpy_to_matrix(xyz_rpy) 
             else:
                 print(f"Error modifying link {self.element.name}'s origin: Box geometry with no dimension")
         elif (geometry_type == Geometry.CYLINDER):
@@ -249,17 +248,17 @@ def get_modifiers(robot, limb):
         JointModifier.from_name('l_ankle_pitch',robot, -0.055989)
     ]
     torso_modifiers = [
-        LinkModifier.from_name('root_link',robot, 0, Side.DEPTH),
-        LinkModifier.from_name('torso_1',robot, 0, Side.DEPTH, False),
-        LinkModifier.from_name('torso_2',robot, 0, Side.DEPTH),
-        LinkModifier.from_name('chest',robot, 0, Side.DEPTH, True),
-        JointModifier.from_name('torso_pitch',robot, -0.078, False, False),
-        JointModifier.from_name('torso_yaw',robot, -0.07113, False, False),
-        JointModifier.from_name('r_hip_pitch',robot, 0.0494, True),
-        JointModifier.from_name('l_hip_pitch',robot, 0.0494, True),
-        JointModifier.from_name('r_shoulder_pitch',robot, 0.0554, True, False),
-        JointModifier.from_name('l_shoulder_pitch',robot, 0.0554, True, False),
-        JointModifier.from_name('neck_fixed_joint',robot, 0.0607, True, False)
+        LinkModifier.from_name('root_link',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
+        LinkModifier.from_name('torso_1',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
+        LinkModifier.from_name('torso_2',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
+        LinkModifier.from_name('chest',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
+        JointModifier.from_name('torso_pitch',robot, -0.078, flip_direction=False),
+        JointModifier.from_name('torso_yaw',robot, -0.07113, flip_direction=False),
+        JointModifier.from_name('r_hip_pitch',robot, 0.0494, take_half_length=True),
+        JointModifier.from_name('l_hip_pitch',robot, 0.0494, take_half_length=True),
+        JointModifier.from_name('r_shoulder_pitch',robot, 0.0554, take_half_length=True, flip_direction=False),
+        JointModifier.from_name('l_shoulder_pitch',robot, 0.0554, take_half_length=True, flip_direction=False),
+        JointModifier.from_name('neck_fixed_joint',robot, 0.0607, take_half_length=True, flip_direction=False)
     ]
     if (limb == Limb.RIGHT_ARM):
         return right_arm_modifiers
