@@ -17,13 +17,13 @@
         <xi:include href="./gazebo_icub_left_arm_no_hand_for_no_hand_model/gazebo_icub_left_arm_no_hand_for_no_hand_model_nws_yarp.xml" />
         <xi:include href="./gazebo_icub_right_arm_no_hand_for_no_hand_model/gazebo_icub_right_arm_no_hand_for_no_hand_model_remapper.xml" />
         <xi:include href="./gazebo_icub_right_arm_no_hand_for_no_hand_model/gazebo_icub_right_arm_no_hand_for_no_hand_model_nws_yarp.xml" />
-        
+
         <!-- torso, head -->
         <xi:include href="./gazebo_icub_torso/gazebo_icub_torso_remapper.xml" />
         <xi:include href="./gazebo_icub_torso/gazebo_icub_torso_nws_yarp.xml" />
         <xi:include href="./gazebo_icub_head_without_eyes_V2_7/gazebo_icub_head_without_eyes_V2_7_remapper.xml" />
         <xi:include href="./gazebo_icub_head_without_eyes_V2_7/gazebo_icub_head_without_eyes_V2_7_nws_yarp.xml" />
-        
+
         <!-- Sensors -->
         <!-- lidar -->
         <xi:include href="./gazebo_icub_laser/gazebo_icub_laser_nws_yarp.xml" />
@@ -31,10 +31,10 @@
         <!-- rgbd_camera -->
         <xi:include href="./gazebo_icub_rgbd_camera_eyes/gazebo_icub_rgbd_camera_eyes_nws_yarp.xml"/>
 
-        <!-- remote controlboard -->
-        <!-- <xi:include href="./gazebo_icub_rcb/gazebo_icub_rcb.xml" /> -->
+        <!-- imu -->
+        <xi:include href="./gazebo_icub_head_inertial.xml" />
         <xi:include href="./estimators/wbd_icub3_sim.xml"/>
     </devices>
 
-    
+
 </robot>
