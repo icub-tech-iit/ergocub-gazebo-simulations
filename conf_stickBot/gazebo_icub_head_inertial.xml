@@ -4,5 +4,4 @@
 <device xmlns:xi="http://www.w3.org/2001/XInclude" name="head_inertial" type="genericSensorClient">
     <param name="remote"> /icubSim/inertial </param>
     <param name="local"> /wholeBodyDynamics/imu </param>
-    <action phase="shutdown" level="4" type="detach" />
 </device>

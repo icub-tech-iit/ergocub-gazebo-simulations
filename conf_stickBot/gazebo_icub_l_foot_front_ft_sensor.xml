@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE robot PUBLIC "-//YARP//DTD yarprobotinterface 3.0//EN" "http://www.yarp.it/DTD/yarprobotinterfaceV3.0.dtd">
+
+<device xmlns:xi="http://www.w3.org/2001/XInclude" name="left_lower_leg_front_strain" type="analogsensorclient">
+    <param name="remote"> /icubSim/left_foot_front/analog:o </param>
+    <param name="local"> /wholeBodyDynamics/l_foot_front_ft_sensor </param>
+</device>
