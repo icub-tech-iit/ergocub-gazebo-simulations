@@ -43,7 +43,7 @@
         <xi:include href="./gazebo_icub_r_foot_rear_ft_sensor.xml" />
 
         <!-- estimators -->
-        <!--  It get stuck beacuse wbd tries to read from the imu, but the imu start when the urdf is completely loaded <xi:include href="estimators/wbd_icub3_sim.xml" /> -->
+        <xi:include href="estimators/wbd_icub3_sim.xml" />
     </devices>
 
 

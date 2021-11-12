@@ -9,13 +9,13 @@ killall -9 gazebo
 killall -9 gzserver
 killall -9 gzclient
 sleep 2
-export YARP_ROBOT_NAME=iCubGazeboV3
+export YARP_ROBOT_NAME=stickBot
 
 yarpserver --write --silent &
 
 sleep 1
 
-export YARP_CLOCK=/clock 
+export YARP_CLOCK=/clock
 
 # Run gazebo world
 gazebo -slibgazebo_yarp_clock.so  hold_box.world &
@@ -33,10 +33,6 @@ sleep 5
 
 # Import the box
 echo "loadModelFromFile \"$( pwd )/sdf_files\"" | yarp rpc /world_input_port
-
-echo "Starting yarprobotinterface"
-yarprobotinterface -slibgazebo_yarp_clock.so &
-sleep 10
 
 # Run yarpscopes
 echo "Running yarpscopes"
