@@ -25,7 +25,7 @@ def set_box_mass(model, new_box_mass):
 
 def main(filename, spawn_position, box_dimensions, box_mass, should_reset):
     if (should_reset):
-        os.system(f"git checkout {filename}")
+        os.system(f"cp sdf_files/hold_box.sdf {filename}")
     else:
         tree = ET.parse(filename)
         root = tree.getroot()
@@ -45,5 +45,5 @@ if __name__ == '__main__':
     parser.add_argument('-m', '--mass', type=float, default=None, help="The mass of the box")
     parser.add_argument('-r', '--reset', help="Sets the test back to latest version in Git", action="store_true")
     args = parser.parse_args()
-    filename = 'sdf_files/hold_box.sdf'
+    filename = '../../build/sdf_files/hold_box.sdf'
     main(filename, args.position, args.dimensions, args.mass, args.reset)

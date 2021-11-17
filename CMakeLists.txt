@@ -9,7 +9,8 @@ project(ergocub-gazebo-simulation
                        VERSION 0.0.0)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/models DESTINATION ${CMAKE_BINARY_DIR})
-install(DIRECTORY ${CMAKE_BINARY_DIR}/models/ DESTINATION share/iCub/robots)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/experiments/hold_box/sdf_files DESTINATION ${CMAKE_BINARY_DIR})
+install(DIRECTORY ${CMAKE_BINARY_DIR}/models DESTINATION share/gazebo)
 # for now using stickBot as name, we might want to change to something more ergocub-ish
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/conf_stickBot DESTINATION share/iCub)
