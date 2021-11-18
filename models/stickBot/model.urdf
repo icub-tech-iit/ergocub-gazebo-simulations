@@ -1452,7 +1452,7 @@
       <update_rate>100</update_rate>
       <pose>0.0034999999997785457 0.0054999999863750895 0.1013340000004441 -3.141592653589793 -4.20000162559822e-15 -1.570796326794897</pose>
       <plugin name="iCub_yarp_gazebo_plugin_IMU" filename="libgazebo_yarp_imu.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_inertial.ini</yarpConfigurationFile>
+        <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_head_inertial/gazebo_icub_head_inertial.ini</yarpConfigurationFile>
       </plugin>
     </sensor>
   </gazebo>
@@ -1540,7 +1540,7 @@
       <update_rate>100</update_rate>
       <pose>0.0894115 0.0175 0.09929950000000001 -1.5707963267948968 -0.0 -1.5707963267948968</pose>
       <plugin name="iCub_yarp_gazebo_plugin_IMU" filename="libgazebo_yarp_imu.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_chest_inertial.ini</yarpConfigurationFile>
+        <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_chest_inertial/gazebo_icub_chest_inertial.ini</yarpConfigurationFile>
       </plugin>
     </sensor>
   </gazebo>

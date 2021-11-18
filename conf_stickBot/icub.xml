@@ -32,7 +32,10 @@
         <xi:include href="./gazebo_icub_rgbd_camera_eyes/gazebo_icub_rgbd_camera_eyes_nws_yarp.xml"/>
 
         <!-- imu -->
-        <xi:include href="./gazebo_icub_head_inertial.xml" />
+        <xi:include href="./gazebo_icub_head_inertial/gazebo_icub_head_inertial_nws_yarp.xml" />
+        <xi:include href="./gazebo_icub_chest_inertial/gazebo_icub_chest_inertial_nws_yarp.xml" />
+
+        <!--<xi:include href="./gazebo_icub_head_inertial.xml" />-->
 
         <!-- ft sensors -->
         <xi:include href="./gazebo_icub_l_arm_ft_sensor.xml" />

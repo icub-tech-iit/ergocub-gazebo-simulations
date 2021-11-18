@@ -44,7 +44,7 @@
                 <elem name="left_arm">left_arm_no_hand_mc</elem>
                 <elem name="head">head_device</elem>
                 <!-- imu -->
-                <elem name="imu">head_inertial</elem>
+                <elem name="imu">head-inertial</elem>
                 <!-- ft -->
                 <elem name="l_arm_ft_sensor">left_upper_arm_strain</elem>
                 <elem name="r_arm_ft_sensor">right_upper_arm_strain</elem>
