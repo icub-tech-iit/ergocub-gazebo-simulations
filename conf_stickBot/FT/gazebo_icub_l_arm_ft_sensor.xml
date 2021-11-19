@@ -5,3 +5,4 @@
     <param name="remote"> /icubSim/left_arm/analog:o </param>
     <param name="local"> /wholeBodyDynamics/l_arm_ft_sensor </param>
 </device>
+
