@@ -35,15 +35,13 @@
         <xi:include href="./gazebo_icub_head_inertial/gazebo_icub_head_inertial_nws_yarp.xml" />
         <xi:include href="./gazebo_icub_chest_inertial/gazebo_icub_chest_inertial_nws_yarp.xml" />
 
-        <!--<xi:include href="./gazebo_icub_head_inertial.xml" />-->
-
         <!-- ft sensors -->
-        <!-- <xi:include href="./FT/gazebo_icub_l_arm_ft_sensor.xml" /> -->
-        <!-- <xi:include href="./gazebo_icub_r_arm_ft_sensor.xml" />
-        <xi:include href="./gazebo_icub_l_foot_front_ft_sensor.xml" />
-        <xi:include href="./gazebo_icub_l_foot_rear_ft_sensor.xml" />
-        <xi:include href="./gazebo_icub_r_foot_front_ft_sensor.xml" />
-        <xi:include href="./gazebo_icub_r_foot_rear_ft_sensor.xml" /> -->
+        <xi:include href="./FT/gazebo_icub_l_arm_ft_sensor_nws_yarp.xml" />
+        <xi:include href="./FT/gazebo_icub_r_arm_ft_sensor_nws_yarp.xml" />
+        <xi:include href="./FT/gazebo_icub_l_foot_front_ft_sensor_nws_yarp.xml" />
+        <xi:include href="./FT/gazebo_icub_l_foot_rear_ft_sensor_nws_yarp.xml" />
+        <xi:include href="./FT/gazebo_icub_r_foot_front_ft_sensor_nws_yarp.xml" />
+        <xi:include href="./FT/gazebo_icub_r_foot_rear_ft_sensor_nws_yarp.xml" /> -->
 
         <!-- estimators -->
         <xi:include href="estimators/wbd_icub3_sim.xml" />

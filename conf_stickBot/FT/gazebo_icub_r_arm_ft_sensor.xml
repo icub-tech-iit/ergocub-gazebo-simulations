@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE robot PUBLIC "-//YARP//DTD yarprobotinterface 3.0//EN" "http://www.yarp.it/DTD/yarprobotinterfaceV3.0.dtd">
-
-<device xmlns:xi="http://www.w3.org/2001/XInclude" name="right_upper_arm_strain" type="analogsensorclient">
-    <param name="remote"> /icubSim/right_arm/analog:o </param>
-    <param name="local"> /wholeBodyDynamics/r_arm_ft_sensor </param>
-</device>
