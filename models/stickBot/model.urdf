@@ -354,10 +354,40 @@
     </inertial>
     <visual>
       <geometry>
-        <sphere radius="0.1"/>
+        <sphere radius="0.08"/>
       </geometry>
       <material name="gray"/>
       <origin xyz="0.0 0.0 0.025" rpy="-1.5707963267948966 0.0 -1.5707963267948966"/>
+    </visual>
+  </link>
+  <link name="camera_tilt">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0.0 0.0"/>
+      <mass value="0.06"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder radius="0.03" length="0.09"/>
+      </geometry>
+        <material name="blue">
+          <color rgba= "0 0 1 1"/>
+      </material>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </visual>
+  </link>
+  <link name="lidar">
+    <inertial>
+      <origin xyz="0.0 0.0 0.17" rpy="0.0 0.0 0.0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder radius="0.04" length="0.04"/>
+      </geometry>
+      <material name="blue"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     </visual>
   </link>
   <link name="r_hip_1">
@@ -820,6 +850,22 @@
     <axis xyz="-1.62554992e-21 -1.09999837e-15  1.00000000e+00"/>
     <origin xyz="0.0 0.0 0.06915000000000002" rpy="0.0 0.0 0.0"/>
   </joint>
+  <joint name="camera_tilt_joint" type="revolute">
+    <dynamics damping="0.06" friction="0.0"/>
+    <limit effort="50000.0" velocity="120.0" lower="-0.7853981633974483" upper="0.7853981633974483"/>
+    <parent link="neck_3"/>
+    <child link="camera_tilt"/>
+    <axis xyz="0 0 1.0"/>
+    <origin xyz="0.05305 0.0 0.08205" rpy="1.5708 3.1415 0.0"/>
+  </joint>
+  <joint name="lidar_joint" type="revolute">
+    <dynamics damping="0.06" friction="0.0"/>
+    <limit effort="50000.0" velocity="120.0" lower="-0.7853981633974483" upper="0.7853981633974483"/>
+    <parent link="neck_3"/>
+    <child link="lidar"/>
+    <axis xyz="0 0 1.0"/>
+    <origin xyz="0.0 0.0 0.17" rpy="0.0 0.0 0.0"/>
+  </joint>
   <joint name="r_hip_pitch" type="revolute">
     <dynamics damping="0.06" friction="0.0"/>
     <limit effort="50000.0" velocity="120.0" lower="-0.7853981633974483" upper="2.007128639793479"/>
@@ -1028,7 +1074,7 @@
   </gazebo>
   <gazebo>
     <plugin name="controlboard_torso" filename="libgazebo_yarp_controlboard.so">
-      <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_torso.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_torso/gazebo_icub_torso.ini</yarpConfigurationFile>
     </plugin>
   </gazebo>
   <gazebo reference="torso_pitch">
@@ -1108,7 +1154,7 @@
   </gazebo>
   <gazebo>
     <plugin name="controlboard_left_leg" filename="libgazebo_yarp_controlboard.so">
-      <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_left_leg.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_left_leg/gazebo_icub_left_leg.ini</yarpConfigurationFile>
     </plugin>
   </gazebo>
   <gazebo reference="l_hip_pitch">
@@ -1179,7 +1225,7 @@
   </gazebo>
   <gazebo>
     <plugin name="controlboard_right_leg" filename="libgazebo_yarp_controlboard.so">
-      <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_right_leg.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_right_leg/gazebo_icub_right_leg.ini</yarpConfigurationFile>
     </plugin>
   </gazebo>
   <gazebo reference="r_hip_pitch">
@@ -1202,7 +1248,7 @@
   </gazebo>
   <gazebo>
     <plugin name="controlboard_head_without_eyes" filename="libgazebo_yarp_controlboard.so">
-      <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_head_without_eyes_V2_7.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_head_without_eyes_V2_7/gazebo_icub_head_without_eyes_V2_7.ini</yarpConfigurationFile>
     </plugin>
   </gazebo>
   <gazebo reference="neck_pitch">
@@ -1216,7 +1262,7 @@
   </gazebo>
   <gazebo>
     <plugin name="controlboard_left_arm_no_hand" filename="libgazebo_yarp_controlboard.so">
-      <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_left_arm_no_hand_for_no_hand_model.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_left_arm_no_hand_for_no_hand_model/gazebo_icub_left_arm_no_hand_for_no_hand_model.ini</yarpConfigurationFile>
       <initialConfiguration>-0.52 0.52 0 0.785 0 0 0.0</initialConfiguration>
     </plugin>
   </gazebo>
@@ -1243,7 +1289,7 @@
   </gazebo>
   <gazebo>
     <plugin name="controlboard_right_arm_no_hand" filename="libgazebo_yarp_controlboard.so">
-      <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_right_arm_no_hand_for_no_hand_model.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_right_arm_no_hand_for_no_hand_model/gazebo_icub_right_arm_no_hand_for_no_hand_model.ini</yarpConfigurationFile>
       <initialConfiguration>-0.52 0.52 0 0.785 0 0 0.0</initialConfiguration>
     </plugin>
   </gazebo>
@@ -1278,7 +1324,7 @@
       </force_torque>
       <pose>-0.004350133156978329 3.632573233880443e-07 -0.05430003872406172 3.141592646862139 -3.104683320142575e-08 -1.5707962571980942</pose>
       <plugin name="left_arm_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/FT/gazebo_icub_left_arm_ft.ini</yarpConfigurationFile>
+        <yarpConfigurationString>(yarpDeviceName left_upper_arm_strain)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1300,7 +1346,7 @@
       </force_torque>
       <pose>-0.006849946385389875 2.1904996055921444e-07 -0.05429998157789099 3.141592644717707 4.094299285979593e-08 1.5707964185756365</pose>
       <plugin name="right_arm_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/FT/gazebo_icub_right_arm_ft.ini</yarpConfigurationFile>
+        <yarpConfigurationString>(yarpDeviceName right_upper_arm_strain)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1322,7 +1368,7 @@
       </force_torque>
       <pose>0.0 0.0 0.022299999999999986 0.0 -0.0 -2.094395210586932</pose>
       <plugin name="left_foot_front_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/FT/gazebo_icub_left_foot_front_ft.ini</yarpConfigurationFile>
+        <yarpConfigurationString>(yarpDeviceName left_lower_leg_front_strain)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1344,7 +1390,7 @@
       </force_torque>
       <pose>0.0 0.0 0.022299999999999986 0.0 -0.0 -2.094395210586932</pose>
       <plugin name="left_foot_rear_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/FT/gazebo_icub_left_foot_rear_ft.ini</yarpConfigurationFile>
+        <yarpConfigurationString>(yarpDeviceName left_lower_leg_rear_strain)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1366,7 +1412,7 @@
       </force_torque>
       <pose>0.0 0.0 0.022299999999999986 0.0 -0.0 -2.094395210586932</pose>
       <plugin name="right_foot_front_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/FT/gazebo_icub_right_foot_front_ft.ini</yarpConfigurationFile>
+        <yarpConfigurationString>(yarpDeviceName right_lower_leg_front_strain)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1388,7 +1434,7 @@
       </force_torque>
       <pose>0.0 0.0 0.022299999999999986 0.0 -0.0 -2.094395210586932</pose>
       <plugin name="right_foot_rear_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/FT/gazebo_icub_right_foot_rear_ft.ini</yarpConfigurationFile>
+        <yarpConfigurationString>(yarpDeviceName right_lower_leg_rear_strain)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1406,7 +1452,7 @@
       <update_rate>100</update_rate>
       <pose>0.0034999999997785457 0.0054999999863750895 0.1013340000004441 -3.141592653589793 -4.20000162559822e-15 -1.570796326794897</pose>
       <plugin name="iCub_yarp_gazebo_plugin_IMU" filename="libgazebo_yarp_imu.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_inertial.ini</yarpConfigurationFile>
+        <yarpConfigurationString>(yarpDeviceName head-inertial)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1414,50 +1460,15 @@
     <parent link="head"/>
     <origin rpy="-3.141592653589793 -4.20000162559822e-15 -1.570796326794897" xyz="0.0034999999997785457 0.0054999999863750895 0.1013340000004441"/>
   </sensor>
-  <gazebo reference="chest">
-    <sensor name="realsense_chest_depth" type="depth">
+
+  <gazebo reference="camera_tilt">
+    <sensor name="realsense_head_rgbd" type="depth">
       <always_on>1</always_on>
       <update_rate>30</update_rate>
-      <pose>0.0894115 0.0175 0.09929950000000001 -1.5707963267948968 -0.0 -1.5707963267948968</pose>
-      <camera name="intel_realsense_depth_camera">
+      <pose>0.0 0.0 0.0 0.0 -1.57079 0.0</pose>
+      <camera name="intel_realsense_rgbd_camera">
         <pose>0 0 0 -1.57079 -1.57079 3.14159</pose>
-        <horizontal_fov>1.57079</horizontal_fov>
-        <distortion>
-          <k1>0</k1>
-          <k2>0</k2>
-          <k3>0</k3>
-          <p1>0</p1>
-          <p2>0</p2>
-          <center>319.5 239.5</center>
-        </distortion>
-        <image>
-          <width>640</width>
-          <height>480</height>
-          <format>R8G8B8</format>
-        </image>
-        <clip>
-          <near>0.175</near>
-          <far>3000</far>
-        </clip>
-      </camera>
-      <visualize>false</visualize>
-      <plugin name="iCub_yarp_gazebo_plugin_depthCamera" filename="libgazebo_yarp_depthCamera.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_depth_camera.ini</yarpConfigurationFile>
-      </plugin>
-    </sensor>
-  </gazebo>
-  <sensor name="realsense_chest_depth" type="depth">
-    <parent link="chest"/>
-    <origin rpy="-1.5707963267948968 -0.0 -1.5707963267948968" xyz="0.0894115 0.0175 0.09929950000000001"/>
-  </sensor>
-  <gazebo reference="chest">
-    <sensor name="realsense_chest_rgb" type="camera">
-      <always_on>1</always_on>
-      <update_rate>30</update_rate>
-      <pose>0.0894115 -0.0115 0.09929950000000001 -1.5707963267948968 -0.0 -1.5707963267948968</pose>
-      <camera name="intel_realsense_rgb_camera">
-        <pose>0 0 0 -1.57079 -1.57079 3.14159</pose>
-        <horizontal_fov>1.2217</horizontal_fov>
+        <horizontal_fov>2.1</horizontal_fov>
         <distortion>
           <k1>0</k1>
           <k2>0</k2>
@@ -1477,22 +1488,59 @@
         </clip>
       </camera>
       <visualize>false</visualize>
-      <plugin name="iCub_yarp_gazebo_plugin_camera" filename="libgazebo_yarp_camera.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_rgb_camera.ini</yarpConfigurationFile>
+      <plugin name="depth_camera_plugin" filename="libgazebo_yarp_depthCamera.so">
+        <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_rgbd_camera_eyes/gazebo_icub_rgbd_camera_eyes.ini</yarpConfigurationFile>
       </plugin>
     </sensor>
   </gazebo>
-  <sensor name="realsense_chest_rgb" type="camera">
-    <parent link="chest"/>
-    <origin rpy="-1.5707963267948968 -0.0 -1.5707963267948968" xyz="0.0894115 -0.0115 0.09929950000000001"/>
+  <sensor name="realsense_head_rgbd" type="camera">
+    <parent link="camera_tilt"/>
+    <origin rpy="0.0 -1.57079 0.0" xyz="0.0 0.0 0.0"/>
   </sensor>
+
+  <gazebo reference="lidar">
+    <sensor name="lasersensor_head" type="ray">
+        <always_on>1</always_on>
+        <update_rate>40</update_rate>
+        <pose frame=''>0.0 0.0 0.02 0.0 0.0 0.0</pose>
+        <visualize>true</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>360</samples>
+              <resolution>2</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>6.28</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.04</min>
+            <max>5</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0</mean>
+            <stddev>0.005</stddev>
+          </noise>
+        </ray>
+      <plugin name="lasersensor" filename="libgazebo_yarp_lasersensor.so">
+        <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_laser/gazebo_icub_laser.ini</yarpConfigurationFile>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <sensor name="lasersensor_head" type="ray">
+    <parent link="lidar"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.025"/>
+  </sensor>
+
   <gazebo reference="chest">
     <sensor name="chest_imu_acc_1x1" type="imu">
       <always_on>1</always_on>
       <update_rate>100</update_rate>
       <pose>0.0894115 0.0175 0.09929950000000001 -1.5707963267948968 -0.0 -1.5707963267948968</pose>
       <plugin name="iCub_yarp_gazebo_plugin_IMU" filename="libgazebo_yarp_imu.so">
-        <yarpConfigurationFile>model://iCub/conf_icub3/gazebo_icub_chest_inertial.ini</yarpConfigurationFile>
+        <yarpConfigurationString>(yarpDeviceName chest-inertial)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1500,6 +1548,11 @@
     <parent link="chest"/>
     <origin rpy="-1.5707963267948968 -0.0 -1.5707963267948968" xyz="0.0894115 0.0175 0.09929950000000001"/>
   </sensor>
+  <gazebo>
+      <plugin name="robotinterface" filename="libgazebo_yarp_robotinterface.so">
+      <yarpRobotInterfaceConfigurationFile>model://iCub/conf_stickBot/icub.xml</yarpRobotInterfaceConfigurationFile>
+    </plugin>
+  </gazebo>
   <gazebo>
     <pose>0.0 0.0 0.64 0.0 0.0 0.0</pose>
   </gazebo>
