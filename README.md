@@ -19,7 +19,7 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 - [`urdfpy`](https://github.com/mmatl/urdfpy)
 - [`dataclasses`](https://pypi.org/project/dataclasses/)
 
-:warning: **Since `stickBot` has been now ported to the new nws/nwc architecture, it requires `YARP 3.5.0` or greater and latest `gazebo-yarp-plugins` devel branch. Moreover before compiling `gazebo-yarp-plugins` the CMake flag `GAZEBO_YARP_PLUGINS_DISABLE_IMPLICIT_NETWORK_WRAPPERS` has to be set to `ON`**
+:warning: **Since `stickBot` has been now ported to the new nws/nwc architecture, it requires `YARP 3.5.0` or greater, latest `whole-body-estimators` master branch and latest `gazebo-yarp-plugins` devel branch. Moreover before compiling `gazebo-yarp-plugins` the CMake flag `GAZEBO_YARP_PLUGINS_DISABLE_IMPLICIT_NETWORK_WRAPPERS` has to be set to `ON`**
 
 ## Installation:
 
