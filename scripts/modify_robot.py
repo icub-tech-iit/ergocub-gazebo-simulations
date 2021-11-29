@@ -42,6 +42,35 @@ def create_dummy_file(dummy_filename, text):
     with open(dummy_filename, 'w') as f:
         f.writelines(text)
 
+def parse_modifications(config_section):
+    """Returns the modifications from a section of the ini file"""
+    modifications = {}
+    dimension_scale = config_section.get('dimension_scale', None)
+    if dimension_scale is not None:
+        modifications["dimension"] = [float(dimension_scale), False]
+    density_scale = config_section.get('density_scale', None)
+    if density_scale is not None:
+        modifications["density"] = [float(density_scale), False]
+    radius_scale = config_section.get('radius_scale', None)
+    if radius_scale is not None:
+        modifications["radius"] = [float(radius_scale), False]
+    mass_scale = config_section.get('mass_scale', None)
+    if mass_scale is not None:
+        modifications["mass"] = [float(mass_scale), False]
+    dimension = config_section.get('dimension', None)
+    if dimension is not None:
+        modifications["dimension"] = [float(dimension), True]
+    density = config_section.get('density', None)
+    if density is not None:
+        modifications["density"] = [float(density), True]
+    radius = config_section.get('radius', None)
+    if radius is not None:
+        modifications["radius"] = [float(radius), True]
+    mass = config_section.get('mass', None)
+    if mass is not None:
+        modifications["mass"] = [float(mass), True]
+    return modifications
+
 def erase_dummy_file(dummy_filename):
     """Erases the dummy file"""
     os.remove(dummy_filename)
@@ -64,18 +93,14 @@ def main(filename, dummy_file, config_file_path, should_reset):
         config = configparser.ConfigParser()
         config.read(config_file_path)
         for config_section in config.sections():
-            dimension_multiplier = float(config[config_section].get('dimension', '1.0'))
-            radius_multiplier = float(config[config_section].get('radius', '1.0'))
-            density_multiplier = float(config[config_section].get('density', '1.0'))
-            new_mass = float(config[config_section].get('mass', '-1'))
-            new_mass = new_mass if new_mass > 0 else None
+            modifications = parse_modifications(config[config_section])            
             if config_section.upper() in Limb:
                 selector = Limb[config_section.upper()]
             else: 
                 selector = config_section
             elements_to_modify = get_modifiers(robot, selector)
             for element_to_modify in elements_to_modify:
-                element_to_modify.modify(dimension_multiplier, density_multiplier, radius_multiplier, new_mass)
+                element_to_modify.modify(modifications)
         write_urdf_to_file(robot, export_filename, gazebo_plugin_text)
     install_urdf()
 

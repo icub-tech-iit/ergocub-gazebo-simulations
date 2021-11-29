@@ -13,7 +13,7 @@ class Modifier(metaclass=ABCMeta):
         self.element_type = element_type
 
     @abstractmethod
-    def modify(self, dimension_multiplier, density_multiplier, radius_multiplier, new_mass):
+    def modify(self, modifications):
         pass
 
     @abstractmethod
@@ -43,21 +43,85 @@ class LinkModifier(Modifier):
         else:
             return None
 
-    def modify(self, dimension_multiplier = 1, density_multiplier = 1, radius_multiplier=1, new_mass=None):
+    def modify(self, modifications):
         """Performs the dimension and density modifications to the current link"""
         original_density = self.calculate_density()
-        self.modify_volume(dimension_multiplier, radius_multiplier)
-        if new_mass is None:
-            density = original_density * density_multiplier
-            self.modify_mass(density)
-        else:
-            self.set_mass(new_mass)
+        original_radius = self.get_radius()
+        original_length = self.get_significant_length()
+        original_mass = self.get_mass()
+        if "radius" in modifications:
+            if modifications["radius"][1]:
+                self.set_radius(modifications["radius"][0])
+            else:
+                if original_radius is not None:
+                    self.set_radius(original_radius * modifications["radius"][0])
+        if "dimension" in modifications:
+            if modifications["dimension"][1]:
+                self.set_length(modifications["dimension"][0])
+            else:
+                if original_length is not None:
+                    self.set_length(original_length * modifications["dimension"][0])
+        if "density" in modifications:
+            if modifications["density"][1]:
+                self.set_density(modifications["density"][0])
+            else:
+                self.set_density(original_density * modifications["density"][0])
+        if "mass" in modifications:
+            if modifications["mass"][1]:
+                self.set_mass(modifications["mass"][0])
+            else:
+                self.set_mass(original_mass * modifications["mass"][0])
         self.update_inertia()
         self.modify_origin()
 
     def get_visual(self):
         """Returns the visual object of a link"""
         return self.element.visuals[0]
+
+    def get_significant_length(self):
+        """Gets the significant length for a cylinder or box geometry"""
+        geometry_type, visual_data = self.get_geometry(self.get_visual())
+        if (geometry_type == Geometry.BOX):
+            if (self.dimension is not None):
+                if (self.dimension == Side.WIDTH):
+                    return visual_data.size[0]
+                elif (self.dimension == Side.HEIGHT):
+                    return visual_data.size[1]
+                elif (self.dimension == Side.DEPTH):
+                    return visual_data.size[2]
+            else:
+                print(f"Error getting length for link {self.element.name}'s volume: Box geometry with no dimension")
+        elif (geometry_type == Geometry.CYLINDER):
+            return visual_data.length
+        else:
+            return None
+
+    def get_radius(self):
+        """Returns the radius if the link geometry is cylinder or sphere and None otherwise"""
+        geometry_type, visual_data = self.get_geometry(self.get_visual())
+        return visual_data.radius if geometry_type == Geometry.CYLINDER or geometry_type == Geometry.SPHERE else None
+
+    def set_radius(self, new_radius):
+        """Sets the radius of a link if its geometry is cylider or sphere"""
+        geometry_type, visual_data = self.get_geometry(self.get_visual())
+        if (geometry_type == Geometry.CYLINDER or geometry_type == Geometry.SPHERE):
+            visual_data.radius = new_radius
+
+    def set_length(self, length):
+        """Modifies a link's length, in a manner that is logical with its geometry"""
+        geometry_type, visual_data = self.get_geometry(self.get_visual())
+        if (geometry_type == Geometry.BOX):
+            if (self.dimension is not None):
+                if (self.dimension == Side.WIDTH):
+                    visual_data.size[0] = length
+                elif (self.dimension == Side.HEIGHT):
+                    visual_data.size[1] = length
+                elif (self.dimension == Side.DEPTH):
+                    visual_data.size[2] = length
+            else:
+                print(f"Error modifying link {self.element.name}'s volume: Box geometry with no dimension")
+        elif (geometry_type == Geometry.CYLINDER):
+            visual_data.length = length
 
     @staticmethod
     def get_visual_static(link):
@@ -96,25 +160,6 @@ class LinkModifier(Modifier):
         geometry_type, visual_data = self.get_geometry(self.get_visual())
         return self.get_mass() / self.calculate_volume(geometry_type, visual_data)
 
-    def modify_volume(self, multiplier, radius_multiplier):
-        """Modifies a link's volume by a given multiplier, in a manner that is logical with the link's geometry"""
-        geometry_type, visual_data = self.get_geometry(self.get_visual())
-        if (geometry_type == Geometry.BOX):
-            if (self.dimension is not None):
-                if (self.dimension == Side.WIDTH):
-                    visual_data.size[0] *= multiplier
-                elif (self.dimension == Side.HEIGHT):
-                    visual_data.size[1] *= multiplier
-                elif (self.dimension == Side.DEPTH):
-                    visual_data.size[2] *= multiplier
-            else:
-                print(f"Error modifying link {self.element.name}'s volume: Box geometry with no dimension")
-        elif (geometry_type == Geometry.CYLINDER):
-            visual_data.length *= multiplier
-            visual_data.radius *= radius_multiplier
-        elif (geometry_type == Geometry.SPHERE):
-            visual_data.radius *= multiplier ** (1./3)
-
     def modify_origin(self):
         """Modifies the position of the origin by a given amount"""
         visual_obj = self.get_visual()
@@ -140,7 +185,7 @@ class LinkModifier(Modifier):
         elif (geometry_type == Geometry.SPHERE):
             return
 
-    def modify_mass(self, density):
+    def set_density(self, density):
         """Changes the mass of a link by preserving a given density."""
         geometry_type, visual_data = self.get_geometry(self.get_visual())
         volume = self.calculate_volume(geometry_type, visual_data)
@@ -204,7 +249,7 @@ class JointModifier(Modifier):
         else:
             return None
 
-    def modify(self, dimension_multiplier = None, density_multiplier = None, radius_multipler=None, new_mass=None):
+    def modify(self, modifications = None):
         """Performs the dimension and density modifications to the current link"""
         significant_length = self.get_parent_significant_length()
         self.modify_origin(significant_length)
