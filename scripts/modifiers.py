@@ -13,7 +13,7 @@ class Modifier(metaclass=ABCMeta):
         self.element_type = element_type
 
     @abstractmethod
-    def modify(self, dimension_multiplier, density_multiplier):
+    def modify(self, modifications):
         pass
 
     @abstractmethod
@@ -43,11 +43,34 @@ class LinkModifier(Modifier):
         else:
             return None
 
-    def modify(self, dimension_multiplier = 1, density_multiplier = 1):
+    def modify(self, modifications):
         """Performs the dimension and density modifications to the current link"""
-        density = self.calculate_density() * density_multiplier
-        self.modify_volume(dimension_multiplier)
-        self.modify_mass(density)
+        original_density = self.calculate_density()
+        original_radius = self.get_radius()
+        original_length = self.get_significant_length()
+        original_mass = self.get_mass()
+        if "radius" in modifications:
+            if modifications["radius"][1]:
+                self.set_radius(modifications["radius"][0])
+            else:
+                if original_radius is not None:
+                    self.set_radius(original_radius * modifications["radius"][0])
+        if "dimension" in modifications:
+            if modifications["dimension"][1]:
+                self.set_length(modifications["dimension"][0])
+            else:
+                if original_length is not None:
+                    self.set_length(original_length * modifications["dimension"][0])
+        if "density" in modifications:
+            if modifications["density"][1]:
+                self.set_density(modifications["density"][0])
+            else:
+                self.set_density(original_density * modifications["density"][0])
+        if "mass" in modifications:
+            if modifications["mass"][1]:
+                self.set_mass(modifications["mass"][0])
+            else:
+                self.set_mass(original_mass * modifications["mass"][0])
         self.update_inertia()
         self.modify_origin()
 
@@ -55,8 +78,54 @@ class LinkModifier(Modifier):
         """Returns the visual object of a link"""
         return self.element.visuals[0]
 
+    def get_significant_length(self):
+        """Gets the significant length for a cylinder or box geometry"""
+        geometry_type, visual_data = self.get_geometry(self.get_visual())
+        if (geometry_type == Geometry.BOX):
+            if (self.dimension is not None):
+                if (self.dimension == Side.WIDTH):
+                    return visual_data.size[0]
+                elif (self.dimension == Side.HEIGHT):
+                    return visual_data.size[1]
+                elif (self.dimension == Side.DEPTH):
+                    return visual_data.size[2]
+            else:
+                print(f"Error getting length for link {self.element.name}'s volume: Box geometry with no dimension")
+        elif (geometry_type == Geometry.CYLINDER):
+            return visual_data.length
+        else:
+            return None
+
+    def get_radius(self):
+        """Returns the radius if the link geometry is cylinder or sphere and None otherwise"""
+        geometry_type, visual_data = self.get_geometry(self.get_visual())
+        return visual_data.radius if geometry_type == Geometry.CYLINDER or geometry_type == Geometry.SPHERE else None
+
+    def set_radius(self, new_radius):
+        """Sets the radius of a link if its geometry is cylider or sphere"""
+        geometry_type, visual_data = self.get_geometry(self.get_visual())
+        if (geometry_type == Geometry.CYLINDER or geometry_type == Geometry.SPHERE):
+            visual_data.radius = new_radius
+
+    def set_length(self, length):
+        """Modifies a link's length, in a manner that is logical with its geometry"""
+        geometry_type, visual_data = self.get_geometry(self.get_visual())
+        if (geometry_type == Geometry.BOX):
+            if (self.dimension is not None):
+                if (self.dimension == Side.WIDTH):
+                    visual_data.size[0] = length
+                elif (self.dimension == Side.HEIGHT):
+                    visual_data.size[1] = length
+                elif (self.dimension == Side.DEPTH):
+                    visual_data.size[2] = length
+            else:
+                print(f"Error modifying link {self.element.name}'s volume: Box geometry with no dimension")
+        elif (geometry_type == Geometry.CYLINDER):
+            visual_data.length = length
+
     @staticmethod
     def get_visual_static(link):
+        """Static method that returns the visual of a link"""
         return link.visuals[0]
 
     @staticmethod
@@ -82,28 +151,14 @@ class LinkModifier(Modifier):
         """Returns the link's mass"""
         return self.element.inertial.mass
 
+    def set_mass(self, new_mass):
+        """Sets the mass value to a new value"""
+        self.element.inertial.mass = new_mass
+
     def calculate_density(self):
         """Calculates density from mass and volume"""
         geometry_type, visual_data = self.get_geometry(self.get_visual())
         return self.get_mass() / self.calculate_volume(geometry_type, visual_data)
-
-    def modify_volume(self, multiplier):
-        """Modifies a link's volume by a given multiplier, in a manner that is logical with the link's geometry"""
-        geometry_type, visual_data = self.get_geometry(self.get_visual())
-        if (geometry_type == Geometry.BOX):
-            if (self.dimension is not None):
-                if (self.dimension == Side.WIDTH):
-                    visual_data.size[0] *= multiplier
-                elif (self.dimension == Side.HEIGHT):
-                    visual_data.size[1] *= multiplier
-                elif (self.dimension == Side.DEPTH):
-                    visual_data.size[2] *= multiplier
-            else:
-                print(f"Error modifying link {self.element.name}'s volume: Box geometry with no dimension")
-        elif (geometry_type == Geometry.CYLINDER):
-            visual_data.length *= multiplier
-        elif (geometry_type == Geometry.SPHERE):
-            visual_data.radius *= multiplier ** (1./3)
 
     def modify_origin(self):
         """Modifies the position of the origin by a given amount"""
@@ -130,7 +185,7 @@ class LinkModifier(Modifier):
         elif (geometry_type == Geometry.SPHERE):
             return
 
-    def modify_mass(self, density):
+    def set_density(self, density):
         """Changes the mass of a link by preserving a given density."""
         geometry_type, visual_data = self.get_geometry(self.get_visual())
         volume = self.calculate_volume(geometry_type, visual_data)
@@ -194,7 +249,7 @@ class JointModifier(Modifier):
         else:
             return None
 
-    def modify(self, dimension_multiplier = None, density_multiplier = None):
+    def modify(self, modifications = None):
         """Performs the dimension and density modifications to the current link"""
         significant_length = self.get_parent_significant_length()
         self.modify_origin(significant_length)
@@ -219,62 +274,91 @@ class JointModifier(Modifier):
         xyz_rpy[2] += self.origin_modifier
         self.element.origin = xyz_rpy_to_matrix(xyz_rpy)
 
-def get_modifiers(robot, limb):
-    """Returns a list of modifiers for a given limb"""
-    right_arm_modifiers = [
-        LinkModifier.from_name('r_upper_arm',robot, 0.022),
-        LinkModifier.from_name('r_forearm',robot, 0.03904),
-        JointModifier.from_name('r_elbow',robot, 0.0344),
-        JointModifier.from_name('r_wrist_pitch',robot, 0.0506)
-    ]
-    left_arm_modifiers = [
-        LinkModifier.from_name('l_upper_arm',robot, 0.022),
-        LinkModifier.from_name('l_forearm',robot, 0.03904),
-        JointModifier.from_name('l_elbow',robot, 0.0344),
-        JointModifier.from_name('l_wrist_pitch',robot, 0.0506)
-    ]
-    right_leg_modifiers = [
-        LinkModifier.from_name('r_hip_3',robot, 0.058),
-        LinkModifier.from_name('r_lower_leg',robot, -0.03),
-        JointModifier.from_name('r_hip_yaw',robot, 0.1451),
-        JointModifier.from_name('r_knee',robot, 0.0536),
-        JointModifier.from_name('r_ankle_pitch',robot, -0.055989)
-    ]
-    left_leg_modifiers = [
-        LinkModifier.from_name('l_hip_3',robot, 0.058),
-        LinkModifier.from_name('l_lower_leg',robot, -0.03),
-        JointModifier.from_name('l_hip_yaw',robot, 0.1451),
-        JointModifier.from_name('l_knee',robot, 0.0536),
-        JointModifier.from_name('l_ankle_pitch',robot, -0.055989)
-    ]
-    torso_modifiers = [
-        LinkModifier.from_name('root_link',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
-        LinkModifier.from_name('torso_1',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
-        LinkModifier.from_name('torso_2',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
-        LinkModifier.from_name('chest',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
-        JointModifier.from_name('torso_pitch',robot, -0.078, flip_direction=False),
-        JointModifier.from_name('torso_yaw',robot, -0.07113, flip_direction=False),
-        JointModifier.from_name('r_hip_pitch',robot, 0.0494, take_half_length=True),
-        JointModifier.from_name('l_hip_pitch',robot, 0.0494, take_half_length=True),
-        JointModifier.from_name('r_shoulder_pitch',robot, 0.0554, take_half_length=True, flip_direction=False),
-        JointModifier.from_name('l_shoulder_pitch',robot, 0.0554, take_half_length=True, flip_direction=False),
-        JointModifier.from_name('neck_fixed_joint',robot, 0.0607, take_half_length=True, flip_direction=False)
-    ]
-    if (limb == Limb.RIGHT_ARM):
-        return right_arm_modifiers
-    elif (limb == Limb.LEFT_ARM):
-        return left_arm_modifiers
-    elif (limb == Limb.LEFT_LEG):
-        return left_leg_modifiers
-    elif (limb == Limb.RIGHT_LEG):
-        return right_leg_modifiers
-    elif (limb == Limb.ARMS):
-        return right_arm_modifiers + left_arm_modifiers
-    elif (limb == Limb.LEGS):
-        return right_leg_modifiers + left_leg_modifiers
-    elif (limb == Limb.ALL):
-        return right_arm_modifiers + left_arm_modifiers + right_leg_modifiers + left_leg_modifiers + torso_modifiers
-    elif (limb == Limb.TORSO):
-        return torso_modifiers
-    elif (limb == Limb.NONE):
+def get_modifiers(robot, selector):
+    """Returns a list of modifiers for a given limb/link"""
+    modifiers_mapper = {
+        'r_upper_arm': [
+            LinkModifier.from_name('r_upper_arm',robot, 0.022),
+            JointModifier.from_name('r_elbow',robot, 0.0344)
+        ],
+        'r_forearm': [
+            LinkModifier.from_name('r_forearm',robot, 0.03904),
+            JointModifier.from_name('r_wrist_pitch',robot, 0.0506)
+        ],
+        'l_upper_arm': [
+            LinkModifier.from_name('l_upper_arm',robot, 0.022),
+            JointModifier.from_name('l_elbow',robot, 0.0344)
+        ],
+        'l_forearm': [
+            LinkModifier.from_name('l_forearm',robot, 0.03904),
+            JointModifier.from_name('l_wrist_pitch',robot, 0.0506)
+        ],
+        'r_hip_3': [
+            LinkModifier.from_name('r_hip_3',robot, 0.058),
+            JointModifier.from_name('r_hip_yaw',robot, 0.1451),
+            JointModifier.from_name('r_knee',robot, 0.0536)
+        ],
+        'r_lower_leg': [
+            LinkModifier.from_name('r_lower_leg',robot, -0.03),
+            JointModifier.from_name('r_ankle_pitch',robot, -0.055989)
+        ],
+        'l_hip_3': [
+            LinkModifier.from_name('l_hip_3',robot, 0.058),
+            JointModifier.from_name('l_hip_yaw',robot, 0.1451),
+            JointModifier.from_name('l_knee',robot, 0.0536)
+        ],
+        'l_lower_leg': [
+            LinkModifier.from_name('l_lower_leg',robot, -0.03),
+            JointModifier.from_name('l_ankle_pitch',robot, -0.055989)
+        ],
+        'root_link': [
+            LinkModifier.from_name('root_link',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
+            JointModifier.from_name('torso_pitch',robot, -0.078, flip_direction=False),
+            JointModifier.from_name('r_hip_pitch',robot, 0.0494, take_half_length=True),
+            JointModifier.from_name('l_hip_pitch',robot, 0.0494, take_half_length=True)
+        ],
+        'torso_1': [
+            LinkModifier.from_name('torso_1',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
+            JointModifier.from_name('torso_yaw',robot, -0.07113, flip_direction=False),
+        ],
+        'torso_2': [
+            LinkModifier.from_name('torso_2',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
+            JointModifier.from_name('torso_yaw',robot, -0.07113, flip_direction=False)
+        ],
+        'chest': [
+            LinkModifier.from_name('chest',robot, 0, Side.DEPTH, calculate_origin_from_dimensions = False),
+            JointModifier.from_name('r_shoulder_pitch',robot, 0.0554, take_half_length=True, flip_direction=False),
+            JointModifier.from_name('l_shoulder_pitch',robot, 0.0554, take_half_length=True, flip_direction=False),
+            JointModifier.from_name('neck_fixed_joint',robot, 0.0607, take_half_length=True, flip_direction=False)
+        ]
+
+    }
+
+    if isinstance(selector, str):
+        if selector in modifiers_mapper:
+            return modifiers_mapper[selector]
+        else:
+            return []
+    elif (selector == Limb.RIGHT_ARM):
+        return modifiers_mapper["r_upper_arm"] + modifiers_mapper["r_forearm"]
+    elif (selector == Limb.LEFT_ARM):
+        return modifiers_mapper["l_upper_arm"] + modifiers_mapper["l_forearm"]
+    elif (selector == Limb.LEFT_LEG):
+        return modifiers_mapper["l_lower_leg"] + modifiers_mapper["l_hip_3"]
+    elif (selector == Limb.RIGHT_LEG):
+        return modifiers_mapper["r_lower_leg"] + modifiers_mapper["r_hip_3"]
+    elif (selector == Limb.ARMS):
+        return modifiers_mapper["r_upper_arm"] + modifiers_mapper["r_forearm"] + modifiers_mapper["l_upper_arm"] + modifiers_mapper["l_forearm"]
+    elif (selector == Limb.LEGS):
+        return modifiers_mapper["l_lower_leg"] + modifiers_mapper["l_hip_3"] + modifiers_mapper["r_lower_leg"] + modifiers_mapper["r_hip_3"]
+    elif (selector == Limb.TORSO):
+        return modifiers_mapper["root_link"] + modifiers_mapper["torso_1"] + modifiers_mapper["torso_2"] + modifiers_mapper["chest"]
+    elif (selector == Limb.ALL):
+        all_modifiers = []
+        for i in modifiers_mapper:
+            all_modifiers += modifiers_mapper[i]
+        return all_modifiers
+    elif (selector == Limb.NONE):
+        return []
+    else:
         return []
