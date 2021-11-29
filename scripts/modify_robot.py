@@ -47,6 +47,7 @@ def erase_dummy_file(dummy_filename):
     os.remove(dummy_filename)
 
 def install_urdf():
+    """Uses Make to install the URDF in the build folder to the Gazebo path"""
     os.system("cd ../build && make install -j4")
 
 def main(filename, dummy_file, config_file_path, should_reset):
@@ -64,12 +65,17 @@ def main(filename, dummy_file, config_file_path, should_reset):
         config.read(config_file_path)
         for config_section in config.sections():
             dimension_multiplier = float(config[config_section].get('dimension', '1.0'))
+            radius_multiplier = float(config[config_section].get('radius', '1.0'))
             density_multiplier = float(config[config_section].get('density', '1.0'))
+            new_mass = float(config[config_section].get('mass', '-1'))
+            new_mass = new_mass if new_mass > 0 else None
             if config_section.upper() in Limb:
-                limb = Limb[config_section.upper()]
-                elements_to_modify = get_modifiers(robot, limb)
-                for element_to_modify in elements_to_modify:
-                    element_to_modify.modify(dimension_multiplier, density_multiplier)
+                selector = Limb[config_section.upper()]
+            else: 
+                selector = config_section
+            elements_to_modify = get_modifiers(robot, selector)
+            for element_to_modify in elements_to_modify:
+                element_to_modify.modify(dimension_multiplier, density_multiplier, radius_multiplier, new_mass)
         write_urdf_to_file(robot, export_filename, gazebo_plugin_text)
     install_urdf()
 
