@@ -67,20 +67,21 @@ The `modify_robot` script changes the dimensions of the stickbot according to a 
 
 ### The configuration file
 
-The `conf.ini` file is a simple configuration file specifying the limbs to modify:
+The `conf.ini` file is a simple configuration file specifying the elements to modify:
 
 ```ini
 [left_arm]
-dimension = 1.3
-density = 1.5
+dimension = 0.65
+radius = 0.45
+density_scale = 1.5
 
-[right_leg]
+[r_lower_leg]
 dimension = 1.5
 ```
 
-The upper section (the one inside `[]`) specifies the limb to modify, options include `torso, right_arm, left_arm, right_leg, left_leg, arms, legs` and `all`. Sections with other names will be ignored.
+The upper section (the one inside `[]`) specifies the element to modify, options include `torso, right_arm, left_arm, right_leg, left_leg, arms, legs`, `all`, or the name of an individual link. Sections with other names will be ignored.
 
-For any limb you can specify `dimension` and `density` multipliers, which will multiply the specific property for all the links in the specified limb.
+For any element you can specify `dimension`, `mass`, `density`, and `radius`, which will set the specific property for all the valid links. If you want relative scaling you can instead add the `_scale` suffix and the factor to multiply to the original value. If a config section includes both an absolute and a scaling modifier the absolute one takes precedence. Mass modifications take precendence over density.
 
 ### Holding Box Experiment
 
