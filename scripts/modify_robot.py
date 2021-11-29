@@ -50,8 +50,9 @@ def install_urdf():
     os.system("cd ../build && make install -j4")
 
 def main(filename, dummy_file, config_file_path, should_reset):
+    export_filename = "../build/models/stickBot/model.urdf"
     if (should_reset):
-        os.system("cp ../models/stickBot/model.urdf ../build/models/stickBot/model.urdf")
+        os.system(f"cp {filename} {export_filename}")
     else:
         # The urdfpy library does not read the gazebo plugins well so they need to be
         # stripped from the file before parsing it
@@ -69,13 +70,13 @@ def main(filename, dummy_file, config_file_path, should_reset):
                 elements_to_modify = get_modifiers(robot, limb)
                 for element_to_modify in elements_to_modify:
                     element_to_modify.modify(dimension_multiplier, density_multiplier)
-        write_urdf_to_file(robot, filename, gazebo_plugin_text)
+        write_urdf_to_file(robot, export_filename, gazebo_plugin_text)
     install_urdf()
 
 if __name__ == "__main__":
     dummy_file = 'no_gazebo_plugins.urdf'
     parser = argparse.ArgumentParser(description = "Modifies a Stick-Bot URDF file")
-    parser.add_argument('filename', nargs='?', help="The filename of the robot's URDF", default="../build/models/stickBot/model.urdf")
+    parser.add_argument('filename', nargs='?', help="The filename of the robot's URDF", default="../models/stickBot/model.urdf")
     parser.add_argument('-c', '--config', help="Path to configuration file", default="conf.ini")
     parser.add_argument('-r', '--reset', help="Sets the robot back to latest version in Git", action="store_true")
     args = parser.parse_args()
