@@ -1,6 +1,8 @@
 #! /bin/bash
 
 echo "Cleaning up"
+killall yarpdatadumper
+sleep 1
 killall -9 yarpserver
 killall -9 yarpscope
 killall -9 yarprobotinterface

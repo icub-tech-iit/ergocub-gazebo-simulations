@@ -1,13 +1,7 @@
 #! /bin/bash
 
-echo "Cleaning up"
-killall -9 yarpserver
-killall -9 yarpscope
-killall -9 yarprobotinterface
-killall -9 ctpService
-killall -9 gazebo
-killall -9 gzserver
-killall -9 gzclient
+./cleanup.sh
+
 sleep 2
 export YARP_ROBOT_NAME=stickBot
 
@@ -35,10 +29,17 @@ sleep 5
 echo "loadModelFromFile \"../../build/sdf_files\"" | yarp rpc /world_input_port
 
 # Run yarpscopes
-echo "Running yarpscopes"
-unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/left_arm/force; yarpscope --remote /wholeBodyDynamics/left_arm/endEffectorWrench:o --index "(0 1 2)" --color "(Red Green Blue)" --title "Forces left_arm" &
-unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/left_arm/torque; yarpscope --remote /wholeBodyDynamics/left_arm/endEffectorWrench:o --index "(3 4 5)" --color "(Red Green Blue)" --title "Torques left_arm" &
-unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/right_arm/force; yarpscope --remote /wholeBodyDynamics/right_arm/endEffectorWrench:o --index "(0 1 2)" --color "(Red Green Blue)" --title "Forces right_arm" &
-unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/right_arm/torque; yarpscope --remote /wholeBodyDynamics/right_arm/endEffectorWrench:o --index "(3 4 5)" --color "(Red Green Blue)" --title "Torques right_arm" &
-unset YARP_PORT_PREFIX
+#echo "Running yarpscopes"
+#unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/left_arm/force; yarpscope --remote /wholeBodyDynamics/left_arm/endEffectorWrench:o --index "(0 1 2)" --color "(Red Green Blue)" --title "Forces left_arm" &
+#unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/left_arm/torque; yarpscope --remote /wholeBodyDynamics/left_arm/endEffectorWrench:o --index "(3 4 5)" --color "(Red Green Blue)" --title "Torques left_arm" &
+#unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/right_arm/force; yarpscope --remote /wholeBodyDynamics/right_arm/endEffectorWrench:o --index "(0 1 2)" --color "(Red Green Blue)" --title "Forces right_arm" &
+#unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/right_arm/torque; yarpscope --remote /wholeBodyDynamics/right_arm/endEffectorWrench:o --index "(3 4 5)" --color "(Red Green Blue)" --title "Torques right_arm" &
+#unset YARP_PORT_PREFIX
+
+# Run yarpdatadumper
+yarpdatadumper --name /data/left_arm --connect /icubSim/left_arm/stateExt:o &
+yarpdatadumper --name /data/right_arm --connect /icubSim/right_arm/stateExt:o &
+yarpdatadumper --name /data/left_leg --connect /icubSim/left_leg/stateExt:o &
+yarpdatadumper --name /data/right_leg --connect /icubSim/right_leg/stateExt:o &
+
 unset YARP_ROBOT_NAME
