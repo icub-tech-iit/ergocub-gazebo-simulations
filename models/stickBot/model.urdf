@@ -831,7 +831,7 @@
     <parent link="neck_3"/>
     <child link="camera_tilt"/>
     <axis xyz="0. 0. 1."/>
-    <origin xyz="0.05305 0.0 0.08205" rpy="-1.5707926535897934 9.265358979305728e-05 -3.141592653589793"/>
+    <origin xyz="0.05305 0.0 0.08205" rpy="1.5708 3.1415 0.0"/>
   </joint>
   <joint name="lidar_joint" type="revolute">
     <dynamics damping="0.06" friction="0.0"/>
@@ -847,7 +847,7 @@
     <parent link="root_link"/>
     <child link="r_hip_1"/>
     <axis xyz=" 0. -1.  0."/>
-    <origin xyz="0.0216 -0.040549999999999996 -0.021599999999999994" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.0216 -0.040549999999999996 0.0" rpy="0.0 0.0 0.0"/>
   </joint>
   <joint name="r_hip_roll" type="revolute">
     <dynamics damping="0.06" friction="0.0"/>
@@ -916,7 +916,7 @@
     <parent link="root_link"/>
     <child link="l_hip_1"/>
     <axis xyz=" 0. -1.  0."/>
-    <origin xyz="0.0216 0.04045000000000001 -0.021599999999999994" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.0216 0.04045000000000001 0.0" rpy="0.0 0.0 0.0"/>
   </joint>
   <joint name="l_hip_roll" type="revolute">
     <dynamics damping="0.06" friction="0.0"/>
