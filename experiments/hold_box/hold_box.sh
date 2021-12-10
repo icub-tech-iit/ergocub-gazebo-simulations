@@ -12,9 +12,9 @@ sleep 1
 export YARP_CLOCK=/clock
 
 # Run gazebo world
-gazebo -slibgazebo_yarp_clock.so  hold_box.world &
+gzserver -slibgazebo_yarp_clock.so  hold_box.world &
 echo "Awaiting gazebo start up"
-sleep 30
+sleep 18
 echo "Gazebo is ready gazebo start up"
 # Run ctpservice for moving the arms
 ctpService --robot icubSim --part left_arm &
