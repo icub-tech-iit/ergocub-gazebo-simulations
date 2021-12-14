@@ -45,6 +45,8 @@
 
         <!-- estimators -->
         <xi:include href="estimators/wbd_icub3_sim.xml" />
+        <!-- telemetryDeviceDumper -->
+        <xi:include href="telemetry/launch_telemetryDeviceDumper.xml"/>
     </devices>
 
 
