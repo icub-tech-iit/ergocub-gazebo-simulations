@@ -28,14 +28,6 @@ sleep 5
 # Import the box
 echo "loadModelFromFile \"../../build/sdf_files\"" | yarp rpc /world_input_port
 
-# Run yarpscopes
-#echo "Running yarpscopes"
-#unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/left_arm/force; yarpscope --remote /wholeBodyDynamics/left_arm/endEffectorWrench:o --index "(0 1 2)" --color "(Red Green Blue)" --title "Forces left_arm" &
-#unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/left_arm/torque; yarpscope --remote /wholeBodyDynamics/left_arm/endEffectorWrench:o --index "(3 4 5)" --color "(Red Green Blue)" --title "Torques left_arm" &
-#unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/right_arm/force; yarpscope --remote /wholeBodyDynamics/right_arm/endEffectorWrench:o --index "(0 1 2)" --color "(Red Green Blue)" --title "Forces right_arm" &
-#unset YARP_PORT_PREFIX; export YARP_PORT_PREFIX=/right_arm/torque; yarpscope --remote /wholeBodyDynamics/right_arm/endEffectorWrench:o --index "(3 4 5)" --color "(Red Green Blue)" --title "Torques right_arm" &
-#unset YARP_PORT_PREFIX
-
 # Run yarpdatadumper
 yarpdatadumper --name /data/left_arm --connect /icubSim/left_arm/stateExt:o &
 yarpdatadumper --name /data/right_arm --connect /icubSim/right_arm/stateExt:o &
