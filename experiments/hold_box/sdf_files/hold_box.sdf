@@ -1,8 +1,10 @@
 <sdf version="1.5">
+  <physics type="dart">
+  </physics>
   <model name="holding_box">
-    <pose>0.3 0.0 2.1 0 0 0</pose>
+    <pose>-0.4 0.0 1.13 0 0 0</pose>
     <static>false</static>
-    <link name="link">
+    <link name="box">
         <collision name="collision">
             <geometry>
                 <box>
@@ -24,8 +26,11 @@
         </material>
         </visual>
         <inertial>
-            <mass>15.0</mass>
+            <mass>5.0</mass>
         </inertial>
     </link>
+    <plugin name="link_attacher" filename='libgazebo_yarp_linkattacher.so'>
+      <yarpConfigurationFile>model://iCub/conf_stickBot/link_attacher/linkattacher.ini</yarpConfigurationFile>
+    </plugin>
   </model>
 </sdf>

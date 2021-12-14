@@ -14,7 +14,7 @@
 
     <!-- iCub -->
     <include>
-      <uri>model://stickBot_fixed</uri>
+      <uri>model://stickBot_feet_fixed</uri>
       <pose>0 0 0 0 0 3.14159</pose>
     </include>
 
