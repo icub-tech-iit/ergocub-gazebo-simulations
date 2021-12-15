@@ -28,10 +28,4 @@ sleep 5
 # Import the box
 echo "loadModelFromFile \"../../build/sdf_files\"" | yarp rpc /world_input_port
 
-# Run yarpdatadumper
-yarpdatadumper --name /data/left_arm --connect /icubSim/left_arm/stateExt:o &
-yarpdatadumper --name /data/right_arm --connect /icubSim/right_arm/stateExt:o &
-yarpdatadumper --name /data/left_leg --connect /icubSim/left_leg/stateExt:o &
-yarpdatadumper --name /data/right_leg --connect /icubSim/right_leg/stateExt:o &
-
 unset YARP_ROBOT_NAME
