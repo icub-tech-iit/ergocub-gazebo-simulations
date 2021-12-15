@@ -4,7 +4,9 @@
     <inertial>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963267948966"/>
       <mass value="2.52649319"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <inertia ixx="0.02" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.02"/>
+      <!--TODO: Real inertia for this link is 0.01 but this makes model unusable-->
+      <!--remove when https://github.com/icub-tech-iit/ergocub-gazebo-simulations/issues/18 is fixed -->
     </inertial>
     <visual>
       <geometry>
