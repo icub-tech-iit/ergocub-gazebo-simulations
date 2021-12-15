@@ -1,2 +1,2 @@
-killall yarpdatadumper
+killall gzserver
 ./cleanup.sh
