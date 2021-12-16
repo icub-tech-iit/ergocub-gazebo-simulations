@@ -92,7 +92,7 @@ cd experiments/hold_box
 ./hold_box.sh
 ```
 
-This experiment creates a StickBot in `gazebo` with its hands open. Then, a box spawns on top and the robot holds it. `yarpscopes` show the forces and torques that are experienced by both arms:
+This experiment creates a StickBot in `gazebo` with its hands open. Then, a box spawns on top and the robot holds it:
 
 https://user-images.githubusercontent.com/31577366/132519425-fcfe1ce4-3acd-40fd-a878-298949b28ecb.mp4
 
@@ -107,6 +107,10 @@ To change the properties of the box being spawned you can call the `modify_box` 
 ```bash
 ./modify_box.py # [-p {X Y Z}] [-d {D W H}] [-m {MASS}] [-r]
 ```
+
+After running the test, a new directory called `telemetry_data` will appear, use the `plotTelemetry.m` script in MATLAB to plot the results for the specific joints you need:
+
+![hold_box_matlab_plot](https://user-images.githubusercontent.com/31577366/146351517-fdf40d37-7c3b-432a-a3b1-0f6751a942cb.png)
 
 **Flags:**
 - `-p`/`--position` The spawning position of the box, inputted as three numbers representing X, Y and Z coordinates
