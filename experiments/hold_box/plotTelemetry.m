@@ -4,6 +4,9 @@ clear
 %% Modify this array to change the joints that will be plotted
 joints_to_plot = ["r_shoulder_pitch" "r_elbow" "r_wrist_prosup"];
 
+%% Start time of the plot
+start_time = 22;
+
 %% Modify these two variables affect the title in the plots
 box_weight = 5.0;
 increase_factor = 1.0;
@@ -56,30 +59,38 @@ end
 timestamp_encoders = timestamp_encoders - timestamp_encoders(1,1);
 timestamp_velocity = timestamp_velocity - timestamp_velocity(1,1);
 timestamp_torque   = timestamp_torque - timestamp_torque(1,1);
-title_prefix = strcat("x",num2str(increase_factor)," stickBot, box ", num2str(box_weight), "kg");
 
+tmp = find(timestamp_encoders > start_time);
+start_index_encoders = tmp(1);
+
+tmp = find(timestamp_velocity > start_time);
+start_index_velocity = tmp(1);
+
+tmp = find(timestamp_torque > start_time);
+start_index_torque = tmp(1);
 
 %% Plot
+title_prefix = strcat("x",num2str(increase_factor)," stickBot, box ", num2str(box_weight), "kg");
 figure
-plot(timestamp_encoders, encoders(indices_to_plot,:), 'LineWidth', 2)
+plot(timestamp_encoders(start_index_encoders:end), encoders(indices_to_plot,start_index_encoders:end), 'LineWidth', 2)
 title(strcat(title_prefix, " encoders"))
 legend(joints_to_plot, 'Interpreter', 'None')
-xlim([0 max(timestamp_encoders)])
+xlim([timestamp_encoders(start_index_encoders) max(timestamp_encoders)])
 xlabel('Time [s]')
 ylabel('Encoders [deg]')
 
 figure
-plot(timestamp_velocity, velocity(indices_to_plot,:), 'LineWidth', 2)
+plot(timestamp_velocity(start_index_velocity:end), velocity(indices_to_plot,start_index_velocity:end), 'LineWidth', 2)
 title(strcat(title_prefix, " velocity"))
 legend(joints_to_plot, 'Interpreter', 'None')
-xlim([0 max(timestamp_velocity)])
+xlim([timestamp_velocity(start_index_velocity) max(timestamp_velocity)])
 xlabel('Time [s]')
 ylabel('Velocity [deg/s]')
 
 figure
-plot(timestamp_torque, torque(indices_to_plot,:), 'LineWidth', 2)
+plot(timestamp_torque(start_index_torque:end), torque(indices_to_plot,start_index_torque:end), 'LineWidth', 2)
 title(strcat(title_prefix, " torque"))
 legend(joints_to_plot, 'Interpreter', 'None')
-xlim([0 max(timestamp_torque)])
+xlim([timestamp_torque(start_index_torque) max(timestamp_torque)])
 xlabel('Time [s]')
 ylabel('Torque [Nm]')
