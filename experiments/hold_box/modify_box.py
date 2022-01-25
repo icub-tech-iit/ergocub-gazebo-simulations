@@ -45,5 +45,5 @@ if __name__ == '__main__':
     parser.add_argument('-m', '--mass', type=float, default=None, help="The mass of the box")
     parser.add_argument('-r', '--reset', help="Sets the test back to latest version in Git", action="store_true")
     args = parser.parse_args()
-    filename = '../../build/sdf_files/hold_box.sdf'
+    filename = '../../build/hold_box/sdf_files/hold_box.sdf'
     main(filename, args.position, args.dimensions, args.mass, args.reset)

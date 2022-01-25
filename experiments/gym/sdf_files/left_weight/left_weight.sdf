@@ -1,0 +1,28 @@
+<sdf version="1.5">
+  <model name="stickbot_weight_left">
+    <pose>-0.22 -0.3 0.57 0.811662 0.939415 -1.065011</pose>
+    <static>false</static>
+    <link name="cylinder">
+        <visual name="visual">
+            <geometry>
+                <cylinder>
+                    <radius>0.03</radius>
+                    <length>0.17</length>
+                </cylinder>
+            </geometry>
+            <material>
+                <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Red</name>
+                </script>
+        </material>
+        </visual>
+        <inertial>
+            <mass>7</mass>
+        </inertial>
+    </link>
+    <plugin name="link_attacher" filename='libgazebo_yarp_linkattacher.so'>
+        <yarpConfigurationFile>model://iCub/conf_stickBot/link_attacher/linkattacher_weight_left.ini</yarpConfigurationFile>
+    </plugin>
+  </model>
+</sdf>
