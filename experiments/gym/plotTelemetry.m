@@ -15,7 +15,7 @@ increase_factor = 1.16;
 cutoff_freq = 1e4;
 
 %% Read mat files
-testfiledir = './telemetry_data_curls_116';
+testfiledir = './telemetry_data';
 matfiles = dir(fullfile(testfiledir, '*.mat'));
 nfiles = length(matfiles);
 data  = cell(nfiles);
