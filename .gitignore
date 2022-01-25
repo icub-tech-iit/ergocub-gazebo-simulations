@@ -1,5 +1,5 @@
 build/
 __pycache__/
-telemetry_data/
+telemetry_data*/
 *.png
 *.asv
