@@ -120,6 +120,27 @@ After running the test, a new directory called `telemetry_data` will appear, use
 
 ![ergocub-holding-bigger-box](https://user-images.githubusercontent.com/31577366/132665409-2bad5579-c9b9-4de1-b98c-7f3e4f97ffbe.png)
 
+### Gym-like Movements Experiment
+
+This experiment attaches weights to the stickBot and makes it perform gym-like motions, in order to isolate (to the stickBot's best abilities) the effort to single joints. This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin, then before running the script you must append to `GAZEBO_MODEL_PATH` the `/my/workspace/robotology-superbuild/src/GazeboYARPPlugins/tutorial/model` path. Then:
+
+```bash
+cd experiments/gym
+./gym_session.sh # {curls lateral_raises front_raises}
+```
+
+The three possible experiments are the following:
+
+| Name             | Stressed Joint                         | Example                                                                                                                 |
+|------------------|----------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| `curls`          | `r_elbow`, `l_elbow`                   | ![curl](https://user-images.githubusercontent.com/31577366/151012575-4c00273b-641a-4673-9699-6e5a15d43d0e.gif)          |
+| `front_raises`   | `r_shoulder_pitch`, `l_shoulder_pitch` | ![front-raise](https://user-images.githubusercontent.com/31577366/151013455-aaf4def2-3edb-4b32-94ac-46710d81e4e3.gif)   |
+| `lateral_raises` | `r_shoulder_roll`, `l_shoulder_roll`   | ![lateral-raise](https://user-images.githubusercontent.com/31577366/151013597-ef90ed75-3b55-490b-8234-af16285031d7.gif) |
+
+After running the test, a new directory called `telemetry_data` will appear, use the `plotTelemetry.m` script in MATLAB to plot the results for the specific joints you need:
+
+![lateral_raise_116stickbot_7kg_torque](https://user-images.githubusercontent.com/31577366/151013992-fc4eedf7-7abb-43fe-badc-5a401322ff39.png)
+
 ## Feedback and Collaboration
 
 For bugs and feature requests feel free to [submit an issue](https://github.com/icub-tech-iit/ergocub-gazebo-simulations/issues/new) and we will look into it.
