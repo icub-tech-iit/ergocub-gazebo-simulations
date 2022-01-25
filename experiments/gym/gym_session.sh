@@ -59,6 +59,109 @@ curl()
     stretch   
 }
 
+front_raise_lift_left()
+{
+    echo "ctpq time 1.0 off 0 pos (-73.3629 16.3326 -2.6125 13.235 -84.4803 -0.00264766 0.109959)" | yarp rpc /ctpservice/left_arm/rpc	
+}
+
+front_raise_lift_right()
+{
+    echo "ctpq time 1.0 off 0 pos (-73.3629 16.3326 -2.6125 13.235 -84.4803 -0.00264766 0.109959)" | yarp rpc /ctpservice/right_arm/rpc	
+}
+
+front_raise_lift()
+{
+    echo "ctpq time 1.0 off 0 pos (-73.3629 16.3326 -2.6125 13.235 -84.4803 -0.00264766 0.109959)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-73.3629 16.3326 -2.6125 13.235 -84.4803 -0.00264766 0.109959)" | yarp rpc /ctpservice/right_arm/rpc	
+}
+
+front_raise_left()
+{
+    stretch
+    sleep 2
+    front_raise_lift_left
+    sleep 2
+    stretch
+}
+
+front_raise_right()
+{
+    stretch
+    sleep 2
+    front_raise_lift_right
+    sleep 2
+    stretch
+}
+
+front_raise()
+{
+    stretch
+    sleep 2
+    front_raise_lift
+    sleep 2
+    stretch
+}
+
+lateral_raise_lift_left()
+{
+    echo "ctpq time 1.0 off 0 pos (6.99373 87.153 76.7017 4.05757 -88 0.023628 0.0902894)" | yarp rpc /ctpservice/left_arm/rpc
+}
+
+lateral_raise_lift_right()
+{
+    echo "ctpq time 1.0 off 0 pos (6.99373 87.153 76.7017 4.05757 -88 0.023628 0.0902894)" | yarp rpc /ctpservice/right_arm/rpc
+}
+
+lateral_raise_lift()
+{
+    echo "ctpq time 1.0 off 0 pos (6.99373 87.153 76.7017 4.05757 -88 0.023628 0.0902894)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (6.99373 87.153 76.7017 4.05757 -88 0.023628 0.0902894)" | yarp rpc /ctpservice/right_arm/rpc
+}
+
+lateral_raise_drop_left()
+{
+    echo "ctpq time 1.0 off 0 pos (7.02536 15.375 76.6976 3.71276 -88 -0.0322056 0.107769)" | yarp rpc /ctpservice/left_arm/rpc
+}
+
+lateral_raise_drop_right()
+{
+    echo "ctpq time 1.0 off 0 pos (7.02536 15.375 76.6976 3.71276 -88 -0.0322056 0.107769)" | yarp rpc /ctpservice/right_arm/rpc
+}
+
+lateral_raise_drop()
+{
+    echo "ctpq time 1.0 off 0 pos (7.02536 15.375 76.6976 3.71276 -88 -0.0322056 0.107769)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (7.02536 15.375 76.6976 3.71276 -88 -0.0322056 0.107769)" | yarp rpc /ctpservice/right_arm/rpc
+}
+
+lateral_raise_left()
+{
+    lateral_raise_drop_left
+    sleep 2
+    lateral_raise_lift_left
+    sleep 2
+    lateral_raise_drop_left
+}
+
+lateral_raise_right()
+{
+    lateral_raise_drop_right
+    sleep 2
+    lateral_raise_lift_right
+    sleep 2
+    lateral_raise_drop_right
+}
+
+lateral_raise()
+{
+    lateral_raise_drop
+    sleep 2
+    lateral_raise_lift
+    sleep 2
+    lateral_raise_drop
+}
+	
+
 startup()
 {
     ./cleanup.sh
@@ -73,7 +176,7 @@ startup()
     export YARP_CLOCK=/clock
 
     # Run gazebo world
-    gazebo -slibgazebo_yarp_clock.so  gym.world &
+    gzserver -slibgazebo_yarp_clock.so  gym.world &
 
     echo "Awaiting gazebo start up"
     sleep 18
@@ -97,12 +200,12 @@ main()
 {
     if [ "$1" == "" ];
     then
-        echo "select an exercise (options: weights, curls)"
+        echo "select an exercise (options: weights, curls, front_raises, lateral_raises)"
         exit
     fi
     
     startup
-    
+
     if [ "$1" == "weights" ];
     then
         attach_weights
@@ -116,9 +219,36 @@ main()
         curl
         curl
         curl
+        sleep 5
+    elif [ "$1" == "front_raises" ];
+    then
+        attach_weights
+        sleep 5
+        front_raise
+        front_raise
+        front_raise
+        front_raise
+        front_raise
+        front_raise
+        sleep 5
+    elif [ "$1" == "lateral_raises" ];
+    then
+        attach_weights
+        sleep 5
+        lateral_raise
+        lateral_raise
+        lateral_raise
+        lateral_raise
+        lateral_raise
+        lateral_raise
+        sleep 2
+        stretch
+        sleep 5
     else
-        echo "invalid option (options: weights, curls)"
+        echo "invalid option (options: weights, curls, front_raises, lateral_raises)"
     fi
+
+    ./end_experiment.sh
 }
 
 main $1
