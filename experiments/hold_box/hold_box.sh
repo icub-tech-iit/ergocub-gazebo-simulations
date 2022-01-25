@@ -26,6 +26,6 @@ echo "ctpq time 1.0 off 0 pos (-44.4 12.0 0 45 -88 3.8 0.02)" | yarp rpc /ctpser
 sleep 5
 
 # Import the box
-echo "loadModelFromFile \"../../build/sdf_files\"" | yarp rpc /world_input_port
+echo "loadModelFromFile \"../../build/hold_box/sdf_files\"" | yarp rpc /world_input_port
 
 unset YARP_ROBOT_NAME
