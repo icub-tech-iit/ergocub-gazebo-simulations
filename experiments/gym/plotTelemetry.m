@@ -38,18 +38,18 @@ torque = [];
 %% Concatenate the data across files
 for i = 1 : nfiles
     % Encoders
-    timestamp_encoders = [timestamp_encoders  data{i}.hold_box.encoders.timestamps];
-    encoders = [encoders squeeze(data{i}.hold_box.encoders.data)];
+    timestamp_encoders = [timestamp_encoders  data{i}.measured_data.encoders.timestamps];
+    encoders = [encoders squeeze(data{i}.measured_data.encoders.data)];
     % Velocity
-    timestamp_velocity = [timestamp_velocity  data{i}.hold_box.velocity.timestamps];
-    velocity = [velocity squeeze(data{i}.hold_box.velocity.data)];
+    timestamp_velocity = [timestamp_velocity  data{i}.measured_data.velocity.timestamps];
+    velocity = [velocity squeeze(data{i}.measured_data.velocity.data)];
     % Torque
-    timestamp_torque = [timestamp_torque  data{i}.hold_box.torque.timestamps];
-    torque = [torque squeeze(data{i}.hold_box.torque.data)];
+    timestamp_torque = [timestamp_torque  data{i}.measured_data.torque.timestamps];
+    torque = [torque squeeze(data{i}.measured_data.torque.data)];
 end
 
 %% Discriminate only the selected joints
-description_list = data{1}.hold_box.description_list;
+description_list = data{1}.measured_data.description_list;
 [description_list_size, ~] = size(description_list);
 description_list_array = [];
 for i = 1 : description_list_size
