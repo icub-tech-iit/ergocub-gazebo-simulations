@@ -163,4 +163,45 @@ lateral_raise()
     lateral_raise_drop
 }
 
+twist_center()
+{
+    echo "ctpq time 1.0 off 0 pos (-29.7662 29.7711 0.00310926 44.9771 -29.921 -0.00896566 0.116985)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-29.7662 29.7711 0.00310926 44.9771 -29.921 -0.00896566 0.116985)" | yarp rpc /ctpservice/right_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-0.000239444 0.0545568 0.000367605)" | yarp rpc /ctpservice/torso/rpc
+}
+
+twist_left()
+{
+    echo "ctpq time 1.0 off 0 pos (33.6649 -0.0805336 -0.426784)" | yarp rpc /ctpservice/torso/rpc
+}
+
+twist_right()
+{
+    echo "ctpq time 1.0 off 0 pos (-33.6649 -0.0805336 -0.426784)" | yarp rpc /ctpservice/torso/rpc
+}
+
+twist()
+{
+    twist_left
+    twist_right
+}
+
+extension_front()
+{
+    echo "ctpq time 1.0 off 0 pos (0.00796558 35 -0.00841208)" | yarp rpc /ctpservice/torso/rpc
+}
+
+extension_back()
+{
+    echo "ctpq time 1.0 off 0 pos (0.00796558 -15 -0.00841208)" | yarp rpc /ctpservice/torso/rpc
+}
+
+extension()
+{
+    extension_front
+    sleep 5
+    extension_back
+    sleep 5
+}
+
 $1

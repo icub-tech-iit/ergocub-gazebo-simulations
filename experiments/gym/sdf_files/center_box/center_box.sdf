@@ -1,0 +1,35 @@
+<sdf version="1.5">
+  <model name="stickbot_center_box">
+    <pose>-0.35 0 0.85</pose>
+    <static>false</static>
+    <link name="box">
+        <visual name="visual">
+            <geometry>
+                <box>
+                    <size>0.2 0.3 0.2</size>
+                </box>
+            </geometry>
+            <material>
+                <script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Blue</name>
+                </script>
+        </material>
+        </visual>
+        <inertial>
+            <mass>15</mass>
+            <inertia>
+                <ixx>0.1625</ixx>
+                <iyy>0.1</iyy>
+                <izz>0.1294</izz>
+                <ixy>0.0</ixy>
+                <iyz>0.0</iyz>
+                <ixz>0.0</ixz>
+            </inertia>
+        </inertial>
+    </link>
+    <plugin name="link_attacher" filename='libgazebo_yarp_linkattacher.so'>
+        <yarpConfigurationFile>model://iCub/conf_stickBot/link_attacher/linkattacher_center_box.ini</yarpConfigurationFile>
+    </plugin>
+  </model>
+</sdf>

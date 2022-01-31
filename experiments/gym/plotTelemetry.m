@@ -2,20 +2,20 @@ clc
 clear
 
 %% Modify this array to change the joints that will be plotted
-joints_to_plot = ["r_shoulder_pitch" "r_shoulder_roll" "r_shoulder_yaw" "r_elbow"];
+joints_to_plot = ["torso_pitch" "torso_roll" "torso_yaw"];
 
 %% Start time of the plot
-start_time = 31;
+start_time = 0;
 
 %% Modify these two variables affect the title in the plots
-box_weight = 7;
+box_weight = 15;
 increase_factor = 1.16;
 
 %% Frequency of the low pass filter
 cutoff_freq = 1e4;
 
 %% Read mat files
-testfiledir = './telemetry_data';
+testfiledir = './telemetry_data_extensions_116';
 matfiles = dir(fullfile(testfiledir, '*.mat'));
 nfiles = length(matfiles);
 data  = cell(nfiles);
@@ -91,7 +91,7 @@ for i = 1 : amount_of_torques_to_plot
 end
 
 
-title_prefix = strcat("x",num2str(increase_factor)," stickBot, dumbells ", num2str(box_weight), "kg");
+title_prefix = strcat("x",num2str(increase_factor)," stickBot, box ", num2str(box_weight), "kg");
 figure
 plot(timestamp_encoders(start_index_encoders:end), encoders(indices_to_plot,start_index_encoders:end), 'LineWidth', 2)
 title(strcat(title_prefix, " encoders"))
