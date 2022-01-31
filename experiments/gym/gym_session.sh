@@ -161,6 +161,71 @@ lateral_raise()
     lateral_raise_drop
 }
 	
+twist_center()
+{
+    echo "ctpq time 1.0 off 0 pos (-29.7662 29.7711 0.00310926 44.9771 -29.921 -0.00896566 0.116985)" | yarp rpc /ctpservice/left_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-29.7662 29.7711 0.00310926 44.9771 -29.921 -0.00896566 0.116985)" | yarp rpc /ctpservice/right_arm/rpc
+    echo "ctpq time 1.0 off 0 pos (-0.000239444 0.0545568 0.000367605)" | yarp rpc /ctpservice/torso/rpc
+}
+
+twist_left()
+{
+    echo "ctpq time 1.0 off 0 pos (33.6649 -0.0805336 -0.426784)" | yarp rpc /ctpservice/torso/rpc
+}
+
+twist_right()
+{
+    echo "ctpq time 1.0 off 0 pos (-33.6649 -0.0805336 -0.426784)" | yarp rpc /ctpservice/torso/rpc
+}
+
+twist()
+{
+    twist_left
+    sleep 3.5
+    twist_right
+    sleep 3.5
+}
+
+extension_front()
+{
+    echo "ctpq time 1.0 off 0 pos (0.00796558 35 -0.00841208)" | yarp rpc /ctpservice/torso/rpc
+}
+
+extension_back()
+{
+    echo "ctpq time 1.0 off 0 pos (0.00796558 -15 -0.00841208)" | yarp rpc /ctpservice/torso/rpc
+}
+
+extension()
+{
+    extension_front
+    sleep 5
+    extension_back
+    sleep 5
+}
+
+bend_left()
+{
+    echo "ctpq time 1.0 off 0 pos (-0.000239444 0.0545568 19)" | yarp rpc /ctpservice/torso/rpc
+}
+
+bend_right()
+{
+    echo "ctpq time 1.0 off 0 pos (-0.000239444 0.0545568 -19)" | yarp rpc /ctpservice/torso/rpc
+}
+
+bend_center()
+{
+    echo "ctpq time 1.0 off 0 pos (-0.000239444 0.0545568 0)" | yarp rpc /ctpservice/torso/rpc
+}
+
+bend()
+{
+    bend_left
+    sleep 2
+    bend_right
+    sleep 2
+}
 
 startup()
 {
@@ -184,6 +249,7 @@ startup()
     # Run ctpservice for moving the arms
     ctpService --robot icubSim --part left_arm &
     ctpService --robot icubSim --part right_arm &
+    ctpService --robot icubSim --part torso &
     sleep 5
 }
 
@@ -196,11 +262,16 @@ attach_weights()
     echo "loadModelFromFile \"../../build/gym/sdf_files/right_weight\"" | yarp rpc /world_input_port
 }
 
+attach_center_box()
+{
+    echo "loadModelFromFile \"../../build/gym/sdf_files/center_box\"" | yarp rpc /world_input_port
+}
+
 main()
 {
     if [ "$1" == "" ];
     then
-        echo "select an exercise (options: weights, curls, front_raises, lateral_raises)"
+        echo "select an exercise (options: weights, curls, front_raises, lateral_raises, twists, extensions, bends)"
         exit
     fi
     
@@ -244,8 +315,52 @@ main()
         sleep 2
         stretch
         sleep 5
+    elif [ "$1" == "twists" ];
+    then
+        twist_center
+        sleep 2
+        attach_center_box
+        sleep 10
+        twist
+        twist
+        twist
+        twist
+        twist
+        twist
+        twist_center
+        sleep 2
+    elif [ "$1" == "extensions" ];
+    then
+        twist_center
+        sleep 2
+        attach_center_box
+        sleep 10
+        extension
+        extension
+        extension
+        extension
+        extension
+        extension
+        twist_center
+        sleep 2
+    elif [ "$1" == "bends" ];
+    then
+        attach_weights
+        sleep 5
+        lateral_raise_drop
+        sleep 2
+        bend
+        bend
+        bend
+        bend
+        bend
+        bend
+        bend_center
+        sleep 2
+        stretch
+        sleep 5
     else
-        echo "invalid option (options: weights, curls, front_raises, lateral_raises)"
+        echo "invalid option (options: weights, curls, front_raises, lateral_raises, twists, extensions, bends)"
     fi
 
     ./end_experiment.sh
