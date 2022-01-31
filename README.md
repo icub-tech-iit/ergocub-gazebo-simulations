@@ -136,6 +136,9 @@ The three possible experiments are the following:
 | `curls`          | `r_elbow`, `l_elbow`                   | ![curl](https://user-images.githubusercontent.com/31577366/151012575-4c00273b-641a-4673-9699-6e5a15d43d0e.gif)          |
 | `front_raises`   | `r_shoulder_pitch`, `l_shoulder_pitch` | ![front-raise](https://user-images.githubusercontent.com/31577366/151013455-aaf4def2-3edb-4b32-94ac-46710d81e4e3.gif)   |
 | `lateral_raises` | `r_shoulder_roll`, `l_shoulder_roll`   | ![lateral-raise](https://user-images.githubusercontent.com/31577366/151013597-ef90ed75-3b55-490b-8234-af16285031d7.gif) |
+| `twists` | `torso_yaw`   | ![twists](https://user-images.githubusercontent.com/31577366/151828875-47398cc7-0be5-4a49-9731-bb4e0434c726.gif) |
+| `bends` | `torso_roll`   | ![bends](https://user-images.githubusercontent.com/31577366/151828746-5170571f-4558-49cb-b4f0-24ec38889a47.gif) |
+| `extensions` | `torso_pitch`   | ![extensions](https://user-images.githubusercontent.com/31577366/151828818-00d208bb-5a9e-48af-9690-e14b15c1b25e.gif) |
 
 After running the test, a new directory called `telemetry_data` will appear, use the `plotTelemetry.m` script in MATLAB to plot the results for the specific joints you need:
 
