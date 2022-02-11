@@ -49,6 +49,8 @@ You should now see three new models when you open `gazebo` from the terminal:
 
 ![newgazebobots](https://user-images.githubusercontent.com/31577366/132303603-70e8d9cb-8bb9-40a9-9bae-7cb2a9b9b2db.png)
 
+Finally, add `export YARP_ROBOT_NAME=stickBot` in your `.bashrc`.
+
 ## Usage
 
 ### Changing robot characteristics
