@@ -501,6 +501,12 @@
       <material name="green"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963267948966"/>
     </visual>
+    <collision>
+      <geometry>
+        <box size="0.1    0.117  0.0103"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963267948966"/>
+    </collision>
   </link>
   <link name="r_foot_rear">
     <inertial>
@@ -515,6 +521,12 @@
       <material name="white"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963267948966"/>
     </visual>
+    <collision>
+      <geometry>
+        <box size="0.1    0.117  0.0103"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963267948966"/>
+    </collision>
   </link>
   <link name="l_hip_1">
     <inertial>
@@ -627,6 +639,12 @@
       <material name="yellow"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963267948966"/>
     </visual>
+    <collision>
+      <geometry>
+        <box size="0.1    0.117  0.0103"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963267948966"/>
+    </collision>
   </link>
   <link name="l_foot_front">
     <inertial>
@@ -641,6 +659,12 @@
       <material name="pink"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963267948966"/>
     </visual>
+    <collision>
+      <geometry>
+        <box size="0.1    0.117  0.0103"/>
+      </geometry>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 -1.5707963267948966"/>
+    </collision>
   </link>
   <link name="base_link"/>
   <link name="l_sole"/>
