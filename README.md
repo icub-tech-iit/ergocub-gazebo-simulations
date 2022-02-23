@@ -16,6 +16,7 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 
 - [`gazebo`](http://gazebosim.org/)
 - [`robotology-superbuild` v2021.11.1 or greater](https://github.com/robotology/robotology-superbuild/releases/tag/v2021.11.1) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
+- For running the [walking and balancing experiment](https://github.com/icub-tech-iit/ergocub-gazebo-simulations/edit/feat_walking_balance/README.md#walking-and-balancing-experiment) the superbuild [dynamics-full-deps](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics-full-deps) profile and the flag `ROBOTOLOGY_USES_MATLAB` have to be enabled, alongside a matlab installation.
 - [`urdfpy`](https://github.com/mmatl/urdfpy)
 - [`dataclasses`](https://pypi.org/project/dataclasses/)
 
