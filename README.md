@@ -87,7 +87,7 @@ For any element you can specify `dimension`, `mass`, `density`, and `radius`, wh
 
 ### Holding Box Experiment
 
-This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin, then before running the script you must append to `GAZEBO_MODEL_PATH` the `/my/workspace/robotology-superbuild/src/GazeboYARPPlugins/tutorial/model` path. Then:
+This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin. To run it:
 
 ```bash
 cd experiments/hold_box
