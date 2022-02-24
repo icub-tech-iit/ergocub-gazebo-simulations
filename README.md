@@ -15,11 +15,9 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 ## Requirements:
 
 - [`gazebo`](http://gazebosim.org/)
-- [`robotology-superbuild` v2021.11.1 or greater](https://github.com/robotology/robotology-superbuild/releases/tag/v2021.11.1) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
+- [`robotology-superbuild` v2021.02.0](https://github.com/robotology/robotology-superbuild/releases/tag/v2022.02.0) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
 - [`urdfpy`](https://github.com/mmatl/urdfpy)
 - [`dataclasses`](https://pypi.org/project/dataclasses/)
-
-:warning: **Since `stickBot` has been now ported to the new nws/nwc architecture, it requires that the CMake flag `GAZEBO_YARP_PLUGINS_DISABLE_IMPLICIT_NETWORK_WRAPPERS` has to be set to `ON`**
 
 ## Installation:
 
