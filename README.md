@@ -15,12 +15,11 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 ## Requirements:
 
 - [`gazebo`](http://gazebosim.org/)
-- [`robotology-superbuild` v2021.11.1 or greater](https://github.com/robotology/robotology-superbuild/releases/tag/v2021.11.1) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
+- [`robotology-superbuild` v2022.02.0](https://github.com/robotology/robotology-superbuild/releases/tag/v2022.02.0) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
 - For running the [walking and balancing experiment](https://github.com/icub-tech-iit/ergocub-gazebo-simulations/edit/feat_walking_balance/README.md#walking-and-balancing-experiment) the superbuild [dynamics-full-deps](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics-full-deps) profile and the flag `ROBOTOLOGY_USES_MATLAB` have to be enabled, alongside a matlab installation.
 - [`urdfpy`](https://github.com/mmatl/urdfpy)
 - [`dataclasses`](https://pypi.org/project/dataclasses/)
 
-:warning: **Since `stickBot` has been now ported to the new nws/nwc architecture, it requires that the CMake flag `GAZEBO_YARP_PLUGINS_DISABLE_IMPLICIT_NETWORK_WRAPPERS` has to be set to `ON`**
 
 ## Installation:
 
@@ -88,7 +87,7 @@ For any element you can specify `dimension`, `mass`, `density`, and `radius`, wh
 
 ### Holding Box Experiment
 
-This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin, then before running the script you must append to `GAZEBO_MODEL_PATH` the `/my/workspace/robotology-superbuild/src/GazeboYARPPlugins/tutorial/model` path. Then:
+This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin. To run it:
 
 ```bash
 cd experiments/hold_box

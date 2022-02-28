@@ -1325,7 +1325,7 @@
       </force_torque>
       <pose>-0.004350133156978329 3.632573233880443e-07 -0.05430003872406172 3.141592646862139 -3.104683320142575e-08 -1.5707962571980942</pose>
       <plugin name="left_arm_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationString>(yarpDeviceName left_upper_arm_strain)</yarpConfigurationString>
+        <yarpConfigurationString>(yarpDeviceName left_upper_arm_strain) (disableImplicitNetworkWrapper)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1347,7 +1347,7 @@
       </force_torque>
       <pose>-0.006849946385389875 2.1904996055921444e-07 -0.05429998157789099 3.141592644717707 4.094299285979593e-08 1.5707964185756365</pose>
       <plugin name="right_arm_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationString>(yarpDeviceName right_upper_arm_strain)</yarpConfigurationString>
+        <yarpConfigurationString>(yarpDeviceName right_upper_arm_strain) (disableImplicitNetworkWrapper)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1369,7 +1369,7 @@
       </force_torque>
       <pose>0.0 0.0 0.022299999999999986 0.0 -0.0 -2.094395210586932</pose>
       <plugin name="left_foot_front_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationString>(yarpDeviceName left_lower_leg_front_strain)</yarpConfigurationString>
+        <yarpConfigurationString>(yarpDeviceName left_lower_leg_front_strain) (disableImplicitNetworkWrapper)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1391,7 +1391,7 @@
       </force_torque>
       <pose>0.0 0.0 0.022299999999999986 0.0 -0.0 -2.094395210586932</pose>
       <plugin name="left_foot_rear_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationString>(yarpDeviceName left_lower_leg_rear_strain)</yarpConfigurationString>
+        <yarpConfigurationString>(yarpDeviceName left_lower_leg_rear_strain) (disableImplicitNetworkWrapper)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1413,7 +1413,7 @@
       </force_torque>
       <pose>0.0 0.0 0.022299999999999986 0.0 -0.0 -2.094395210586932</pose>
       <plugin name="right_foot_front_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationString>(yarpDeviceName right_lower_leg_front_strain)</yarpConfigurationString>
+        <yarpConfigurationString>(yarpDeviceName right_lower_leg_front_strain) (disableImplicitNetworkWrapper)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1435,7 +1435,7 @@
       </force_torque>
       <pose>0.0 0.0 0.022299999999999986 0.0 -0.0 -2.094395210586932</pose>
       <plugin name="right_foot_rear_ft_plugin" filename="libgazebo_yarp_forcetorque.so">
-        <yarpConfigurationString>(yarpDeviceName right_lower_leg_rear_strain)</yarpConfigurationString>
+        <yarpConfigurationString>(yarpDeviceName right_lower_leg_rear_strain) (disableImplicitNetworkWrapper)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1453,7 +1453,7 @@
       <update_rate>100</update_rate>
       <pose>0.0034999999997785457 0.0054999999863750895 0.1013340000004441 -3.141592653589793 -4.20000162559822e-15 -1.570796326794897</pose>
       <plugin name="iCub_yarp_gazebo_plugin_IMU" filename="libgazebo_yarp_imu.so">
-        <yarpConfigurationString>(yarpDeviceName head-inertial)</yarpConfigurationString>
+        <yarpConfigurationString>(yarpDeviceName head-inertial) (disableImplicitNetworkWrapper)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
@@ -1541,7 +1541,7 @@
       <update_rate>100</update_rate>
       <pose>0.0894115 0.0175 0.09929950000000001 -1.5707963267948968 -0.0 -1.5707963267948968</pose>
       <plugin name="iCub_yarp_gazebo_plugin_IMU" filename="libgazebo_yarp_imu.so">
-        <yarpConfigurationString>(yarpDeviceName chest-inertial)</yarpConfigurationString>
+        <yarpConfigurationString>(yarpDeviceName chest-inertial) (disableImplicitNetworkWrapper)</yarpConfigurationString>
       </plugin>
     </sensor>
   </gazebo>
