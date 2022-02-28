@@ -15,11 +15,10 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 ## Requirements:
 
 - [`gazebo`](http://gazebosim.org/)
-- [`robotology-superbuild` v2021.11.1 or greater](https://github.com/robotology/robotology-superbuild/releases/tag/v2021.11.1) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
+- [`robotology-superbuild` v2022.02.0](https://github.com/robotology/robotology-superbuild/releases/tag/v2022.02.0) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
 - [`urdfpy`](https://github.com/mmatl/urdfpy)
 - [`dataclasses`](https://pypi.org/project/dataclasses/)
 
-:warning: **If you are using the robotology-distro < 2022.02 the stickBot model requires that gazebo-yarp-plugins is compiled with CMake flag `GAZEBO_YARP_PLUGINS_DISABLE_IMPLICIT_NETWORK_WRAPPERS`  has to be set to `ON`. This constraint is not present when using distro >= 2022.02.**
 
 ## Installation:
 
@@ -87,7 +86,7 @@ For any element you can specify `dimension`, `mass`, `density`, and `radius`, wh
 
 ### Holding Box Experiment
 
-This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin, then before running the script you must append to `GAZEBO_MODEL_PATH` the `/my/workspace/robotology-superbuild/src/GazeboYARPPlugins/tutorial/model` path. Then:
+This sandbox uses the [`worldInterface`](http://robotology.github.io/gazebo-yarp-plugins/master/classgazebo_1_1WorldInterface.html) gazebo yarp plugin. To run it:
 
 ```bash
 cd experiments/hold_box
