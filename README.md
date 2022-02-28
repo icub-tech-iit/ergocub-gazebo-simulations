@@ -19,7 +19,7 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 - [`urdfpy`](https://github.com/mmatl/urdfpy)
 - [`dataclasses`](https://pypi.org/project/dataclasses/)
 
-:warning: **Since `stickBot` has been now ported to the new nws/nwc architecture, it requires that the CMake flag `GAZEBO_YARP_PLUGINS_DISABLE_IMPLICIT_NETWORK_WRAPPERS` has to be set to `ON`**
+:warning: **If you are using the robotology-distro < 2022.02 the stickBot model requires that gazebo-yarp-plugins is compiled with CMake flag `GAZEBO_YARP_PLUGINS_DISABLE_IMPLICIT_NETWORK_WRAPPERS`  has to be set to `ON`. This constraint is not present when using distro >= 2022.02.**
 
 ## Installation:
 
