@@ -16,6 +16,7 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 
 - [`gazebo`](http://gazebosim.org/)
 - [`robotology-superbuild` v2022.02.0](https://github.com/robotology/robotology-superbuild/releases/tag/v2022.02.0) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
+- For running the [walking and balancing experiment](https://github.com/icub-tech-iit/ergocub-gazebo-simulations/edit/feat_walking_balance/README.md#walking-and-balancing-experiment) the superbuild [dynamics-full-deps](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics-full-deps) profile and the flag `ROBOTOLOGY_USES_MATLAB` have to be enabled, alongside a matlab installation.
 - [`urdfpy`](https://github.com/mmatl/urdfpy)
 - [`dataclasses`](https://pypi.org/project/dataclasses/)
 
@@ -144,6 +145,29 @@ The three possible experiments are the following:
 After running the test, a new directory called `telemetry_data` will appear, use the `plotTelemetry.m` script in MATLAB to plot the results for the specific joints you need:
 
 ![lateral_raise_116stickbot_7kg_torque](https://user-images.githubusercontent.com/31577366/151013992-fc4eedf7-7abb-43fe-badc-5a401322ff39.png)
+
+### Walking and Balancing Experiment
+
+These experiments implement walking and balancing, to stress the leg joints.
+
+For running the walking experiment, just run the `go_for_a_walk.sh` script.
+
+```bash
+cd experiments/walking
+./go_for_a_walk.sh
+```
+
+Gazebo will spawn, and the robot will walk like so:
+
+https://user-images.githubusercontent.com/31577366/153621747-eeae3d75-001b-4086-b8e5-46c2099bb782.mp4
+
+For this to work, [`WalkingModule`](https://github.com/robotology/walking-controllers) needs to be installed in the system.
+
+It is important to mention that the behavior can be unreliable, and the robot may some times fall. For this reason, the script runs Gazebo with a GUI (unlike the other experiments). This way one can run the experiment several times until a successful walk is achieved. Once the robot walks properly, you will have the data available.
+
+The balancing experiment is ran using [whole-body-controllers](https://github.com/robotology/whole-body-controllers/). Particularly, the [floating-base-balancing-torque-control](https://github.com/robotology/whole-body-controllers/tree/master/controllers/floating-base-balancing-torque-control) demo. You should launch Gazebo, spawn a stickbot and then run the simulink model. From there, you can use the `plotTelemetry.m` matlab script to visualize the data in the joints of interest.
+
+https://user-images.githubusercontent.com/31577366/154500268-94a402ef-8b72-49fa-be5a-1301de6d4d92.mp4
 
 ## Feedback and Collaboration
 

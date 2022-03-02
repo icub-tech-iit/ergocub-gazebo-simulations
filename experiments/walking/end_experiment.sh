@@ -1,0 +1,2 @@
+killall gzserver
+./cleanup.sh

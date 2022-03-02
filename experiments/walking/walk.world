@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <world name="default">
+
+    <!-- Light -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Ground Plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- iCub -->
+    <include>
+      <uri>model://stickBot</uri>
+      <pose>0 0 1 0 0 0</pose>
+    </include>
+
+    <!-- Dummy model to load WorldInterface plugin -->
+    <model  name="simple_world_interface">
+      <link name="simple_world_interface_link">
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>1e-5</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1e-5</iyy>
+            <iyz>0</iyz>
+            <izz>1e-5</izz>
+          </inertia>
+        </inertial>
+      </link>
+      <plugin name="world_interface" filename="libgazebo_yarp_worldinterface.so">
+        <yarpConfigurationString>(name /world_input_port) (synchro 0)</yarpConfigurationString>
+      </plugin>
+    </model>
+
+
+  </world>
+</sdf>
