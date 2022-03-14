@@ -18,6 +18,5 @@ install(DIRECTORY ${CMAKE_BINARY_DIR}/models/ DESTINATION share/iCub/robots)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/conf_stickBot DESTINATION share/iCub)
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/scripts/modify_robot.py ${CMAKE_CURRENT_SOURCE_DIR}/scripts/fix_inertias.py DESTINATION bin )
-E
 # TODO: what do we do about the conf.ini? it should not be installed with the binaries, but we don't really have a context to put it on either...
 
