@@ -63,7 +63,7 @@ mamba create -n ergocubsim
 Then, you can activate the environment and install the dependencies:
 ~~~
 mamba activate ergocubsim
-mamba install -c conda-forge -c robotology robotology-distro yarp icub-models gazebo-yarp-plugins gazebo whole-body-controllers walking-controllers cmake ninja
+mamba install -c conda-forge -c robotology robotology-distro yarp icub-models gazebo-yarp-plugins gazebo whole-body-controllers walking-controllers cmake ninja whole-body-estimators
 ~~~
 
 Clone this repo and create a `build` directory on it:
