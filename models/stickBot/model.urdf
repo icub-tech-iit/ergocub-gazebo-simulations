@@ -1502,22 +1502,22 @@
   <gazebo reference="lidar">
     <sensor name="lasersensor_head" type="ray">
         <always_on>1</always_on>
-        <update_rate>40</update_rate>
+        <update_rate>40</update_rate>         <!-- Real value" 10/20 Hz-->
         <pose frame=''>0.0 0.0 0.02 0.0 0.0 0.0</pose>
-        <visualize>true</visualize>
+        <visualize>false</visualize>          <!-- Hide visualization for simulation RTF improvement-->
         <ray>
           <scan>
             <horizontal>
-              <samples>360</samples>
-              <resolution>2</resolution>
+              <samples>1600</samples>          <!-- 16000 samples per second = 1600 at 10 Hz-->
+              <resolution>1</resolution>
               <min_angle>0</min_angle>
-              <max_angle>6.28</max_angle>
+              <max_angle>6.283185</max_angle>
             </horizontal>
           </scan>
           <range>
-            <min>0.04</min>
-            <max>5</max>
-            <resolution>0.01</resolution>
+            <min>0.2</min>
+            <max>25</max>
+            <resolution>0.01</resolution>    <!-- Real value: 1% of range (if < 12m) 2% otherwise-->
           </range>
           <noise>
             <type>gaussian</type>
