@@ -1550,6 +1550,11 @@
     <origin rpy="-1.5707963267948968 -0.0 -1.5707963267948968" xyz="0.0894115 0.0175 0.09929950000000001"/>
   </sensor>
   <gazebo>
+      <plugin name='world_interface' filename='libgazebo_yarp_worldinterface.so'>
+      <yarpConfigurationFile>model://iCub/conf_stickBot/worldInterface.ini</yarpConfigurationFile>
+    </plugin>
+  </gazebo>
+  <gazebo>
     <plugin name="controlboard_camera_tilt" filename="libgazebo_yarp_controlboard.so">
       <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_rgbd_camera_eyes/gazebo_icub_camera_tilt.ini</yarpConfigurationFile>
     </plugin>
