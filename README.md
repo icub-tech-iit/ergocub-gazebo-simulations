@@ -12,7 +12,9 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 - Alex Antunes ([@AlexAntn](https://github.com/AlexAntn/))
 - Nicolo Genesio ([@Nicogene](https://github.com/Nicogene/))
 
-## Requirements:
+## Installation using dependencies compiled from sources
+
+### Requirements:
 
 - [`gazebo`](http://gazebosim.org/)
 - [`robotology-superbuild` v2022.02.0](https://github.com/robotology/robotology-superbuild/releases/tag/v2022.02.0) with [`dynamics profile`](https://github.com/robotology/robotology-superbuild/blob/master/doc/cmake-options.md#dynamics) enabled and `ROBOTOLOGY_USES_GAZEBO=ON`.
@@ -21,7 +23,7 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 - [`dataclasses`](https://pypi.org/project/dataclasses/)
 
 
-## Installation:
+### Installation:
 
 - Clone this repo and create a `build` directory on it:
 
@@ -50,6 +52,51 @@ You should now see three new models when you open `gazebo` from the terminal:
 ![newgazebobots](https://user-images.githubusercontent.com/31577366/132303603-70e8d9cb-8bb9-40a9-9bae-7cb2a9b9b2db.png)
 
 Finally, add `export YARP_ROBOT_NAME=stickBot` in your `.bashrc`.
+
+## Installation using dependencies compiled from binary
+
+If you want to use `ergocub-gazebo-simulations` and you want to install `gazebo-yarp-plugins` and other dependencies from conda binaries, you can first of all create a new environment (you can skip this step if you already have an environment you want to use):
+~~~
+mamba create -n ergocubsim
+~~~
+
+Then, you can activate the environment and install the dependencies:
+~~~
+mamba activate ergocubsim
+mamba install -c conda-forge -c robotology robotology-distro yarp icub-models gazebo-yarp-plugins gazebo whole-body-controllers walking-controllers cmake ninja whole-body-estimators
+~~~
+
+Clone this repo and create a `build` directory on it:
+
+```bash
+git clone https://github.com/icub-tech-iit/ergocub-gazebo-simulations.git
+cd ergocub-gazebo-simulations
+mkdir build
+cd build
+```
+
+After that, you can install the repo with these commands on Windows:
+~~~
+cmake -GNinja -DCMAKE_INSTALL_PREFIX=%CONDA_PREFIX%\Library ..
+ninja install
+~~~
+
+and with this command on Linux/macOS: 
+~~~
+cmake -GNinja -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX ..
+ninja install
+~~~
+
+You should now see three new models when you open `gazebo` from the terminal:
+
+![newgazebobots](https://user-images.githubusercontent.com/31577366/132303603-70e8d9cb-8bb9-40a9-9bae-7cb2a9b9b2db.png)
+
+Finally, set the `YARP_ROBOT_NAME` in your environment to `stickBot`, via the command:
+~~~
+conda env config vars set YARP_ROBOT_NAME=stickBot
+~~~
+
+After this, make sure that you re-activate your conda environment before using the simulator and the software that use the simulator.
 
 ## Usage
 
