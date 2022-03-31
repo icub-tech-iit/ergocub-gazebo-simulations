@@ -34,7 +34,7 @@ walk()
     sleep 15
     echo "startWalking" | yarp rpc /walking-coordinator/rpc
     sleep 10
-    echo "setGoal 10 0" | yarp rpc /walking-coordinator/rpc
+    echo "setGoal 8 0" | yarp rpc /walking-coordinator/rpc
     sleep 35
 }
 
