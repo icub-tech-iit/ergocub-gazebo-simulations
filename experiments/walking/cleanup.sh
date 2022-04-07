@@ -2,6 +2,8 @@
 
 echo "Cleaning up"
 sleep 1
+# not -9 for letting save data
+killall yarprobotinterface
 killall -9 yarpserver
 killall -9 ctpService
 killall -9 gazebo

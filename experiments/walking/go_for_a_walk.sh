@@ -21,6 +21,7 @@ startup()
     echo "Awaiting gazebo start up"
     sleep 18
     echo "Gazebo is ready gazebo start up"
+    yarprobotinterface --config ../../conf_stickBot/launch-yarp-robot-logger.xml &
 
 }
 
