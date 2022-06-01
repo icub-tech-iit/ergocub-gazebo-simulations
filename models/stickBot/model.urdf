@@ -854,18 +854,18 @@
   <joint name="camera_tilt_joint" type="revolute">
     <dynamics damping="0.06" friction="0.0"/>
     <limit effort="50000.0" velocity="120.0" lower="-0.7853981633974483" upper="0.7853981633974483"/>
-    <parent link="neck_3"/>
+    <parent link="head"/>
     <child link="camera_tilt"/>
     <axis xyz="0. 0. 1."/>
-    <origin xyz="0.05305 0.0 0.08205" rpy="1.5708 3.1415 0.0"/>
+    <origin xyz="0.055513 0.00017 0.076925" rpy="1.5708 3.1415 0.0"/>
   </joint>
   <joint name="lidar_joint" type="fixed">
     <dynamics damping="0.06" friction="0.0"/>
     <limit effort="50000.0" velocity="120.0" lower="-0.7853981633974483" upper="0.7853981633974483"/>
-    <parent link="neck_3"/>
+    <parent link="head"/>
     <child link="lidar"/>
     <axis xyz="0. 0. 1."/>
-    <origin xyz="0.0 0.0 0.17" rpy="0.0 0.0 0.0"/>
+    <origin xyz="0.00117 0.00115 0.1268" rpy="0.0 0.0 0.0"/>
   </joint>
   <joint name="r_hip_pitch" type="revolute">
     <dynamics damping="2.0" friction="0.0"/>
@@ -1466,7 +1466,7 @@
     <sensor name="realsense_head_rgbd" type="depth">
       <always_on>1</always_on>
       <update_rate>30</update_rate>
-      <pose>0.0 0.0 0.0 0.0 -1.57079 0.0</pose>
+      <pose>-0.0113 0.0 0.0 0.0 -1.57079 0.0</pose>
       <camera name="intel_realsense_rgbd_camera">
         <pose>0 0 0 -1.57079 -1.57079 3.14159</pose>
         <horizontal_fov>2.1</horizontal_fov>
@@ -1496,15 +1496,15 @@
   </gazebo>
   <sensor name="realsense_head_rgbd" type="camera">
     <parent link="camera_tilt"/>
-    <origin rpy="0.0 -1.57079 0.0" xyz="0.0 0.0 0.0"/>
+    <origin rpy="0.0 -1.57079 0.0" xyz="-0.0113 0.0 0.0"/>
   </sensor>
 
   <gazebo reference="lidar">
     <sensor name="lasersensor_head" type="ray">
         <always_on>1</always_on>
-        <update_rate>40</update_rate>         <!-- Real value" 10/20 Hz-->
-        <pose frame=''>0.0 0.0 0.02 0.0 0.0 0.0</pose>
-        <visualize>false</visualize>          <!-- Hide visualization for simulation RTF improvement-->
+        <update_rate>40</update_rate>
+        <pose frame=''>0.0 0.0 0.0105 0.0 0.0 0.0</pose>
+        <visualize>false</visualize>
         <ray>
           <scan>
             <horizontal>
@@ -1532,7 +1532,7 @@
   </gazebo>
   <sensor name="lasersensor_head" type="ray">
     <parent link="lidar"/>
-    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.025"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0105"/>
   </sensor>
 
   <gazebo reference="chest">
