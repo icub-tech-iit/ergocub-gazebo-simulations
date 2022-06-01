@@ -6,8 +6,9 @@
     <devices>
 
         <!-- all joints - for robot state publisher -->
-        <xi:include href="./motorControl/alljoints-mc_remapper.xml" /> 
-        <xi:include href="./motorControl/alljoints-mc_ros_nws.xml" />
+        <xi:include href="./motorControl/gazebo_icub_all_mc_remapper.xml" /> 
+        <!-- <xi:include href="./motorControl/gazebo_icub_all_mc_nws_ros.xml" /> -->
+        <xi:include href="./motorControl/gazebo_icub_all_mc_nws_ros2.xml" />
 
         <!-- Control Boards -->
         <!-- legs -->
@@ -31,12 +32,13 @@
         <!-- Sensors -->
         <!-- lidar -->
         <xi:include href="./gazebo_icub_laser/gazebo_icub_laser_nws_yarp.xml" />
-        <xi:include href="./gazebo_icub_laser/gazebo_icub_laser_nws_ros.xml" />
+        <!-- <xi:include href="./gazebo_icub_laser/gazebo_icub_laser_nws_ros.xml" /> -->
+        <xi:include href="./gazebo_icub_laser/gazebo_icub_laser_nws_ros2.xml" />
 
         <!-- rgbd_camera -->
         <xi:include href="./gazebo_icub_rgbd_camera_eyes/gazebo_icub_rgbd_camera_eyes_nws_yarp.xml"/>
-        <xi:include href="./gazebo_icub_rgbd_camera_eyes/gazebo_icub_rgbd_camera_eyes_nws_ros.xml"/>
-
+        <!-- <xi:include href="./gazebo_icub_rgbd_camera_eyes/gazebo_icub_rgbd_camera_eyes_nws_ros.xml"/> -->
+        <xi:include href="./gazebo_icub_rgbd_camera_eyes/gazebo_icub_rgbd_camera_eyes_nws_ros2.xml"/> 
         <!-- imu -->
         <xi:include href="./gazebo_icub_head_inertial/gazebo_icub_head_inertial_nws_yarp.xml" />
         <xi:include href="./gazebo_icub_chest_inertial/gazebo_icub_chest_inertial_nws_yarp.xml" />
