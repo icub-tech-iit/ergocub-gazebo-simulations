@@ -33,6 +33,7 @@
 
         <!-- imu -->
         <xi:include href="./gazebo_icub_head_inertial/gazebo_icub_head_inertial_nws_yarp.xml" />
+        <xi:include href="./gazebo_icub_head_inertial/gazebo_icub_head_inertial_nws_ros2.xml" />
         <xi:include href="./gazebo_icub_chest_inertial/gazebo_icub_chest_inertial_nws_yarp.xml" />
 
         <!-- ft sensors  YARP -->
