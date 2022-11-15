@@ -8,8 +8,6 @@ This repo contains a `gazebo` model, starting from iCub3, and some scripts that 
 
 ## Maintained by:
 
-- German Rodriguez ([@GrmanRodriguez](https://github.com/GrmanRodriguez))
-- Alex Antunes ([@AlexAntn](https://github.com/AlexAntn/))
 - Nicolo Genesio ([@Nicogene](https://github.com/Nicogene/))
 
 ## Installation using dependencies compiled from sources
