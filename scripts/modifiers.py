@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
-from urdfpy import xyz_rpy_to_matrix, matrix_to_xyz_rpy
+from urchin import xyz_rpy_to_matrix, matrix_to_xyz_rpy
 from enums import *
 import math
 import numpy as np

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from urdfpy import URDF, xyz_rpy_to_matrix, matrix_to_xyz_rpy
+from urchin import URDF, xyz_rpy_to_matrix, matrix_to_xyz_rpy
 import numpy as np
 from enum import Enum
 
