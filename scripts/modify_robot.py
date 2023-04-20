@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from urdfpy import URDF
+from urchin import URDF
 from enums import Limb
 from pathlib import Path
 from modifiers import get_modifiers
