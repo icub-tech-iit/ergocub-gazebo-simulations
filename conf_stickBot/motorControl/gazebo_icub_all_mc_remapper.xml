@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE devices PUBLIC "-//YARP//DTD yarprobotinterface 3.0//EN" "http://www.yarp.it/DTD/yarprobotinterfaceV3.0.dtd">
+
+<device xmlns:xi="http://www.w3.org/2001/XInclude" name="alljoints_mc" type="controlboardremapper">
+    <paramlist name="networks">
+        <elem name="head">( 0 2 0 2 )</elem>
+        <elem name="left_arm_no_hand">( 3 9 0 6 )</elem>
+        <elem name="right_arm_no_hand">( 10 16 0 6 )</elem>
+        <elem name="torso">( 17 19  0 2 )</elem>
+        <elem name="left_leg">( 20 25  0 5 )</elem>
+        <elem name="right_leg">( 26 31  0 5 )</elem>
+        <elem name="camera_tilt">( 32 32  0 0 )</elem>
+    </paramlist>
+    <param name="period"> 0.010 </param>
+    <param name="joints"> 33 </param>
+    <action phase="startup" level="5" type="attach">
+        <paramlist name="networks">
+            <elem name="head">head_device</elem>
+            <elem name="left_arm_no_hand">left_arm_no_hand_mc</elem>
+            <elem name="right_arm_no_hand">right_arm_no_hand_mc</elem>
+            <elem name="torso">torso_device</elem>
+            <elem name="left_leg">left_leg_device</elem>
+            <elem name="right_leg">right_leg_device</elem>
+            <elem name="camera_tilt">camera_tilt_device</elem>
+        </paramlist>
+    </action>
+    <action phase="shutdown" level="20" type="detach" />
+</device>

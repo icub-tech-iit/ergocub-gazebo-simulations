@@ -859,7 +859,7 @@
     <axis xyz="0. 0. 1."/>
     <origin xyz="0.055513 0.00017 0.076925" rpy="1.5708 3.1415 0.0"/>
   </joint>
-  <joint name="lidar_joint" type="revolute">
+  <joint name="lidar_joint" type="fixed">
     <dynamics damping="0.06" friction="0.0"/>
     <limit effort="50000.0" velocity="120.0" lower="-0.7853981633974483" upper="0.7853981633974483"/>
     <parent link="head"/>
@@ -1504,20 +1504,20 @@
         <always_on>1</always_on>
         <update_rate>40</update_rate>
         <pose frame=''>0.0 0.0 0.0105 0.0 0.0 0.0</pose>
-        <visualize>true</visualize>
+        <visualize>false</visualize>
         <ray>
           <scan>
             <horizontal>
-              <samples>360</samples>
-              <resolution>2</resolution>
+              <samples>1600</samples>          <!-- 16000 samples per second = 1600 at 10 Hz-->
+              <resolution>1</resolution>
               <min_angle>0</min_angle>
-              <max_angle>6.28</max_angle>
+              <max_angle>6.283185</max_angle>
             </horizontal>
           </scan>
           <range>
-            <min>0.04</min>
-            <max>5</max>
-            <resolution>0.01</resolution>
+            <min>0.2</min>
+            <max>25</max>
+            <resolution>0.01</resolution>    <!-- Real value: 1% of range (if < 12m) 2% otherwise-->
           </range>
           <noise>
             <type>gaussian</type>
@@ -1549,6 +1549,16 @@
     <parent link="chest"/>
     <origin rpy="-1.5707963267948968 -0.0 -1.5707963267948968" xyz="0.0894115 0.0175 0.09929950000000001"/>
   </sensor>
+  <gazebo>
+      <plugin name='world_interface' filename='libgazebo_yarp_worldinterface.so'>
+      <yarpConfigurationFile>model://iCub/conf_stickBot/worldInterface.ini</yarpConfigurationFile>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin name="controlboard_camera_tilt" filename="libgazebo_yarp_controlboard.so">
+      <yarpConfigurationFile>model://iCub/conf_stickBot/gazebo_icub_rgbd_camera_eyes/gazebo_icub_camera_tilt.ini</yarpConfigurationFile>
+    </plugin>
+  </gazebo>
   <gazebo>
       <plugin name="robotinterface" filename="libgazebo_yarp_robotinterface.so">
       <yarpRobotInterfaceConfigurationFile>model://iCub/conf_stickBot/icub.xml</yarpRobotInterfaceConfigurationFile>
